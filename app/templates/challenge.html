@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+    {% block content %}
+    <script
+        src="{{ url_for('static', filename='js/challenge_index.js') }}"
+        type="module"
+    >
+    </script>
+    <!-- Modal challenge details-->
+    <div class="modal fade" id="challengeDetailsModal" tabindex="-1" aria-labelledby="challengeDetailsLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form id="form-challengeDetails" class="row g-3 needs-validation form-challenge-details" novalidate> 
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-title-container">
+                            <div>
+                                <h1 class="modal-title" id="challengeDetailsLabel">Bilan du challenge</h1>
+                            </div>
+                            <div class = "settings-container">
+                                <button id="challenge-settings-button" type="button" class="button">
+                                    <i data-feather="settings" color="white" class="icon-button"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <div class = 'modalContent'>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="close-button-container">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
+                </div> 
+            </form>      
+        </div>
+    </div>
+    <!-- Modal warning cloturer-->
+    <div class="modal fade" id="warningModal" tabindex="-1" aria-labelledby="warningLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form id="form-warning" class="row g-3 needs-validation" novalidate> 
+
+                <div class="modal-content">
+                    
+                    <div class="modal-header">
+                        <div class="modal-title-container">
+                            <h1 class="modal-title" id="warningLabel">Attention</h1>
+                            
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <div class = 'modalContent'>
+                            <p>
+                                Impossible de créer un nouveau challenge tant que vos précédents challenges ne sont pas terminés. 
+                            </p>
+                            <p>
+                                Pour terminer un challenge, il faut avoir cloturé tous les jours de consommation qu'il contient. 
+                            </p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
+                </div> 
+            </form>      
+        </div>
+    </div>
+    <!-- Modal warning suppression challenge-->
+    <div class="modal fade" id="deleteChallengeModal" tabindex="-1" aria-labelledby="deleteChallengeLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form id="form-deleteChallenge" class="row g-3 needs-validation" novalidate> 
+
+                <div class="modal-content">
+                    
+                    <div class="modal-header">
+                        <div class="modal-title-container">
+                            <h1 class="modal-title" id="deleteChallengeLabel">Attention</h1>
+                            
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <div class = 'modalContent'>
+                            <p>
+                                Vous êtes sur le point de supprimer un challenge. 
+                            </p>
+                            <p>
+                                La suppression du challenge entrainera la perte des données de tous les jours qu'il contient.
+                            </p>
+                            <p>
+                               Souhaitez-vous poursuivre ?
+                            </p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <button type="button" id="button-delete-challenge-confirmation" class="btn btn-danger" data-bs-dismiss="modal"> Supprimer </button>
+                        </div>
+                        <div class="row">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
+                </div> 
+            </form>      
+        </div>
+    </div>
+    <div class = 'challenges-main-container'>
+
+        
+        
+        <div class="challenges-container">
+            <div class = "challenge-item-container">
+            </div>
+
+            <div class = "header-content">
+                <div class="svg-container">
+                    <img src="{{ url_for('static', filename='assets/images/font3.svg') }}" class="svg-img-footer">
+                </div>
+              </div>
+            <div class = "challenge-create-container">
+                <button class = "challenge-create" id ="challenge-create"> 
+                    <div class="details-button-label"> Nouveau challenge </div>
+                    <i data-feather="plus-circle" color="#2ecc71"></i>
+                  </button>
+            </div>
+        </div>  
+
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/challenge.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/review.css') }}">
+
+    </div>
+    
+
+{% endblock %}

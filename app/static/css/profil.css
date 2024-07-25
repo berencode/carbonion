@@ -1,0 +1,174 @@
+.profil-container{
+    display: flex;
+    flex-direction: column;
+    flex:1;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+
+}
+.profil-item-container{
+    background-color: #5d6d7e;
+    width: 80%;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(185, 185, 185);
+
+}
+.profil-header{
+    display: flex;
+    background-color: #283747;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+}
+.profil-settings{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+}
+.main-info{
+    color : white;
+
+    font-size: medium;
+}
+.profil-item{
+    padding: 10px;
+}
+.header-content {
+    position: relative; /* Needed for positioning the text */
+    text-align: center;
+    color: #a8a8a8;
+}
+.svg-container {
+    width: 100%; /* Set the width as desired */
+    height: 50px; /* Set the height as desired */
+}
+
+.svg-img {
+    width: 100%; /* Ensure the image takes up the full width of its container */
+    height: 100%; /* Ensure the image takes up the full height of its container */
+    object-fit: fill; /* Fill the container without preserving aspect ratio */
+}
+.svg-img-footer {
+    width: 100%; /* Ensure the image takes up the full width of its container */
+    height: 100%; /* Ensure the image takes up the full height of its container */
+    object-fit: fill; /* Fill the container without preserving aspect ratio */
+}
+.button-create-food-consumption{
+    background-color:  #283747 ;
+    border: 0px;
+    padding: 10px;
+    color : white;
+    border-radius: 5px;
+
+}
+.button-create-food-consumption:hover{
+    background-color:  #34495e ;
+}
+.details-button{
+    display: flex;
+    flex : 1;
+    justify-content: space-around;
+    background-color: red;
+    background-color:  #283747 ;
+    border: none;
+    color:white;
+    padding: 10px;
+    margin: 4px;    
+    gap:10px;
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    border: 1px solid #34495e;
+    text-decoration: none;
+
+}
+.details-button-danger{
+    display: flex;
+    flex : 1;
+    justify-content: space-around;
+    background-color: red;
+    background-color:  #283747 ;
+    color:rgb(218, 62, 62);
+    padding: 10px;
+    margin: 4px;    
+    gap:10px;
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    text-decoration: none;
+    border:1px solid #283747;
+
+}
+
+.details-button-danger:hover{
+    background-color:  #34495e ;
+    box-shadow: 0px 0px 10px -6px rgba(0,0,0,0.23);
+    border:1px solid rgb(218, 62, 62);
+
+}
+
+.details-button:hover{
+    background-color:  #34495e ;
+    box-shadow: 0px 0px 10px -6px rgba(0,0,0,0.23);
+    border: 1px solid white;
+}
+
+/* Use a media query to add a breakpoint at 800px: */
+@media screen and (max-width: 800px) {
+    .details-button-label{
+        display: none;
+    }
+}
+
+.profil-infos{
+    margin : 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex:1;
+}
+
+.profil-infos-title{
+    font-size: large;
+    color: #283747;
+}
+
+.modal-content{
+    background-color: #283747;
+    color : white;
+}
+input[type=text]{
+    background-color: #283747;
+    color: white;
+}
+.select-option{
+    background-color: #283747;
+    padding: 10px;
+    color : white;
+}
+.dropdown-menu, .form-control, .form-select{
+    --bs-body-bg : #283747 !important;
+    --bs-body-color : white !important;
+    --bs-tertiary-bg : #0d6efd !important;
+    --bs-secondary-color : grey !important;
+
+    max-width: 500px;
+    overflow:scroll;
+}
+.dropdown-menu:hover{
+    --bs-body-bg : #283747 !important;
+    --bs-body-color : white !important;
+}
+.no-results{
+    background-color: #283747 !important;
+    color : white !important;
+}

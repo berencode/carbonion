@@ -1,0 +1,22 @@
+.main-container{
+    display: flex;
+    flex-direction: column;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top:30px;
+    gap:30px;
+
+}
+.main-title{
+    font-size: 4em;
+}
+.section{
+    display: flex;
+    flex-direction: column;
+}
+.section-title{
+    font-size:2.3em;
+} 
+.section-body{
+    font-size:1em;
+}

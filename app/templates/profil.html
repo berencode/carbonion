@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div>
+  <!-- Modal importer-->
+  <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <form id="form-delete-account" class="row g-3 needs-validation" novalidate> 
+
+              <div class="modal-content">
+                  
+                  <div class="modal-header">
+                      <div class="modal-title-container">
+                          <h3 class="modal-title" id="deleteAccountLabel">Supprimer mon compte</h3>
+                      </div>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  
+                  <div class="modal-body">
+                      <div class = 'modalContent'>
+                          Cette action entraînera la suppression de votre compte ainsi de toutes les données qui y sont associées. 
+                          Cette action est irreversible.
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                      <div class="button-modal-container">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                            <a href="{{url_for('auth.remove')}}" class="btn btn-danger" id="button-delete-account-modal">Supprimer mon compte</a>
+                      </div>
+                  </div>
+              </div> 
+          </form>      
+      </div>
+  </div>
+
+
+  <div class="profil-container">
+    <div class = "profil-item-container">
+      <div class = "profil-header">
+        <span class="main-info" id="user_id" user-id="{{current_user.id}}">{{current_user.mail}}</span>
+      </div>
+      <div class = "header-content">
+        <div class="svg-container">
+            <img src="{{ url_for('static', filename='assets/images/font4.svg') }}" class="svg-img-footer">
+        </div>
+      </div>
+      <div class="profil-settings">
+        <div class="profil-setting-item">
+          <a class="details-button" href="{{ url_for('auth.signout') }}">
+            <div class="details-button-label"> Se déconnecter </div>
+            <i data-feather="log-out" color="rgb(218, 62, 62)"></i>
+          </a>
+        </div>
+        <div class="profil-setting-item">
+          <button class = "details-button-danger" data-action="deleteAccountModal" data-bs-toggle="modal" data-bs-target="#deleteAccountModal"> 
+            <div class="details-button-label"> Supprimer mon compte </div>
+            <i data-feather="user-x" color="rgb(218, 62, 62)"></i>
+          </button>
+        </div>
+        
+      </div>
+      <div class="profil-infos">
+        <div class = "profil-infos-item">
+          <span class = "profil-infos-title"> Date d'inscription :</span>
+          {{current_user.get_inscription_date()}}
+        </div>
+      </div>
+
+      
+
+      
+      
+    </div>
+
+  </div> 
+
+
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/profil.css') }}">
+
+</div>
+
+{% endblock %}

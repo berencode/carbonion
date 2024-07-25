@@ -1,0 +1,23 @@
+{
+  "name": "lib",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "apexcharts": "^3.48.0",
+    "chosen-js": "^1.8.7",
+    "svg.draggable.js": "^2.2.2",
+    "svg.easing.js": "^2.0.0",
+    "svg.filter.js": "^2.0.2",
+    "svg.js": "^2.7.1",
+    "svg.pathmorphing.js": "^0.1.3",
+    "svg.resize.js": "^1.4.3",
+    "svg.select.js": "^3.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

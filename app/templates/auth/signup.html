@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <script
+        src="{{ url_for('static', filename='js/signup.js') }}"
+        type="module"
+    ></script>
+    <div class="content">
+        <div class="signup-container">
+            <form class = "signup-form" method = "POST">
+                <div class="form-header">
+                  Carb
+                  <img src="{{ url_for('static', filename='assets/images/logo.png') }}" class="logo">
+                  nion
+                </div>
+                {% if error %}
+                  <div class="error-message">
+                    {% if error == 'mail_exist' %}
+                      L'adresse mail est déjà utilisée
+                    {% else %}
+                      Un problème est survenu.
+                    {% endif %}
+                  </div>
+                {% endif %}
+                <div class="mb-3">
+                  <label for="inputEmail1" class="form-label">Adresse Mail</label>
+                  <input type="text" class="form-control" name="mail" aria-describedby="emailHelp" id="mail">
+                </div>
+                <div class = "mb-3">
+                  <div id="mail-status-container" class="hide">
+                    <div class="check-list">
+                      <div class="check-item" id="check-item-mail">
+                          L'adresse mail est invalide
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="inputPassword1" class="form-label">Mot de passe</label>
+                  <input type="password" class="form-control" name="password" id="password">
+                </div>
+                <div class = "mb-3">
+                  <div id="password-status-container" class="hide" >
+                    <div class="check-list">
+                      <div class="check-item" id="check-item-letter">
+                          minuscule
+                      </div>
+                      <div class="check-item" id="check-item-capital">
+                          majuscule
+                      </div>
+                      <div class="check-item" id="check-item-number">
+                          chiffre
+                      </div>
+                      <div class="check-item" id="check-item-length">
+                        taille > 8
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="inputPassword2" class="form-label">Confirmation du mot de passe</label>
+                  <input type="password" class="form-control" name="passwordConfirmation" id="password-confirmation">
+                </div>
+                <div class = "mb-3">
+                  <div id="password-confirmation-status-container" class="hide">
+                    <div class="check-list">
+                      <div class="check-item invalid" id="check-item-not-corresponding">
+                        Les mots de passe ne correspondent pas
+                    </div>
+                    </div>
+                  </div>
+                </div>
+               
+                <button type="submit" class="btn btn-primary" id="signup-button" disabled>S'inscrire</button>
+            </form>
+            <a class="nav-link" href="{{ url_for('auth.signin') }}"> Déjà un compte ?</a>
+        </div>          
+    </div>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/signup.css') }}">
+  {% endblock %}

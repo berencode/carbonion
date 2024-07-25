@@ -1,0 +1,309 @@
+.content{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+input[type=text]{
+    background-color: #283747;
+    color: white;
+}
+.select-option{
+    background-color: #283747;
+    padding: 10px;
+    color : white;
+}
+.dropdown-menu, .form-control, .form-select{
+    --bs-body-bg : #283747 !important;
+    --bs-body-color : white !important;
+    --bs-tertiary-bg : #0d6efd !important;
+    --bs-secondary-color : grey !important;
+
+    max-width: 500px;
+    overflow:scroll;
+}
+.dropdown-menu:hover{
+    --bs-body-bg : #283747 !important;
+    --bs-body-color : white !important;
+}
+.no-results{
+    background-color: #283747 !important;
+    color : white !important;
+}
+.challenges-main-container{
+    margin-top:20px;
+    display: flex;
+    flex-direction:row;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(185, 185, 185);
+
+}
+.challenges-container{
+    background-color: #5d6d7e;
+    flex-direction: column;
+    display: flex;
+    flex:1;
+}
+.challenge-item-container{
+    background-color: #5d6d7e;
+    padding: 10px;
+    height: 70vh;
+    min-width: 80%;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+
+.rect-color{
+    display: block;
+    width: 20px;
+    height: 100%;
+}
+.challenge-item{
+    display: flex;
+    flex-direction: row;
+    border: 0px;
+    padding:0px;
+    background-color: #283747;
+    justify-content: center;
+    align-items: center;
+    color :  #d7dbdd ;
+    border: 1px solid rgb(109, 109, 109);
+    min-height: 60px;
+}
+
+.challenge-item:hover{
+    background-color: #34495e;
+    border: 1px solid white;
+
+}
+.challenge-item-column{
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    color : grey;
+    font-style: italic;
+}
+.emphasis-info{
+    color : white;
+}
+
+.challenge-name{
+    display: flex;
+    flex : 1;
+    background-color: aliceblue;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.challenge-create-container{
+    background-color: #283747;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.challenge-create{
+    border:0px;
+    padding: 10px;
+    color : white;
+    background-color: #34495e;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    gap : 10px;
+    border: 1px solid #34495e;
+}
+
+.challenge-create:hover{
+    background-color: #34495e;
+    border: 1px solid white;
+}
+
+.challenge-details-menu{
+    display: flex;
+    min-height: 480px;
+    flex-direction: column;
+}
+.challenge-details-item{
+    border:0px;
+    padding: 10px;
+    color : white;
+    background-color: #283747;
+    border-radius: 5px;
+}
+
+.challenge-details-item:hover{
+    background-color:  #34495e ;
+}
+
+.modal-dialog{
+    --bs-modal-width : 1000px !important;
+}
+.challenge-details-body{
+    columns: white !important;
+}
+.modal-content{
+    width: 90%;
+    background-color: #283747;
+    color : black;
+    text-align: justify;
+}
+.modal-title-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items:center;
+    width: 100%;
+}
+.form-challenge-details{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.button{
+    border : none;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #34495e;
+}
+.button:hover{
+    border : none;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #283747;
+}
+.settings-container{
+    padding: 10px;
+}
+.modal-title{
+    font-size: 25px;
+    color: white;
+}
+.modal-footer{
+    display: block;
+}
+.close-button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+#form-challenge-settings{
+    padding: 30px;
+}
+.form-challenge-settings-button-container{
+    display: flex;
+    flex-direction: row;
+    align-items: right;
+    justify-content: right;
+}
+
+.delete-challenge-container{
+    display: flex;
+    
+    background-color: blue;
+}
+.delete-challenge-button{
+    display: flex;
+    flex : 1;
+    justify-content: space-around;
+    background-color: red;
+    background-color:  #34495e ;
+    border: none;
+    color:red;
+    padding: 10px;
+    margin: 4px;    
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    gap: 10px;
+}
+
+.delete-challenge-button:hover{
+    background-color:  #283747 ;
+    box-shadow: 0px -10px 10px -6px rgba(0,0,0,0.23)
+}
+
+
+.header-content {
+    position: relative; /* Needed for positioning the text */
+    text-align: center;
+    color: #a8a8a8;
+}
+.svg-container {
+    width: 100%; /* Set the width as desired */
+    height: 50px; /* Set the height as desired */
+}
+
+.svg-img {
+    width: 100%; /* Ensure the image takes up the full width of its container */
+    height: 100%; /* Ensure the image takes up the full height of its container */
+    object-fit: fill; /* Fill the container without preserving aspect ratio */
+}
+.svg-img-footer {
+    width: 100%; /* Ensure the image takes up the full width of its container */
+    height: 100%; /* Ensure the image takes up the full height of its container */
+    object-fit: fill; /* Fill the container without preserving aspect ratio */
+}
+
+
+.chosen-container, .chosen-single, .chosen-container-single{
+    background-color: #283747 !important;
+    color : white !important;
+    background:none !important;
+    -webkit-box-shadow: none !important;
+    font-size:1em !important;
+}
+.chosen-single{
+    padding: 10px 10px 10px 8px !important;
+    height: 50px !important;
+    font-size:1.3em !important;
+
+}
+.chosen-drop{
+    background-color: #283747 !important;
+}
+
+.review-main-row-container{
+    display: flex;
+    flex-direction: row;
+}
+@media screen and (max-width: 430px) {
+    .review-main-row-container{
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+    
+.review-indicators-container{
+    display: flex;
+    flex :1;
+}
+.review-page-container{
+    display: flex;
+    flex:5;
+}
+.review-page{
+    display: flex;
+    flex:1;
+}
+.form-label{
+    color : white !important;
+}
+.modalContent{
+    color : white  !important;
+}

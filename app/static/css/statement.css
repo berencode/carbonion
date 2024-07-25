@@ -1,0 +1,739 @@
+.content{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 10px;
+}
+.content-loaded{
+    display: none;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 10px;
+}
+/* Use a media query to add a breakpoint at 800px: */
+@media screen and (max-width: 800px) {
+    .content{
+        flex-direction: column;
+        align-items: center;
+    }
+}
+@media screen and (max-width: 800px) {
+    .content-loaded{
+        flex-direction: column;
+        align-items: center;
+    }
+}
+.statement-container{
+    display: flex;
+    flex : 1;
+    border-radius: 5px;
+    flex-direction: row;
+    max-height: 85vh;
+    max-width: 70%;
+    background-color:  #283747 ;
+}
+/* Use a media query to add a breakpoint at 800px: */
+@media screen and (max-width: 800px) {
+    .statement-container{
+        min-width: 90%;
+
+    }
+}
+
+.list-days-container{
+    display: flex;
+    direction:ltr; 
+    align-items:stretch;
+    overflow: scroll;;
+    max-height: 85vh;
+    min-height: 85vh;
+    background-color: #283747;
+}
+/* Use a media query to add a breakpoint at 800px: */
+@media screen and (max-width: 800px) {
+    .list-days-container{
+        max-width: 90%;
+        min-height: 3vh;
+    }
+}
+
+.day-consumption-details-card{
+    display: flex;
+    padding: 10px;
+    flex : 1;
+    flex-direction: column;
+    text-align: center;
+    background-color:  #5d6d7e ;
+    z-index: 2;
+    color : black;
+    border: 1px solid rgb(185, 185, 185);
+    overflow: hidden;
+
+}
+
+
+.days-container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    z-index: 3;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    box-shadow: 30px 2px 41px -12px rgba(0,0,0,0.37);
+}
+/* Use a media query to add a breakpoint at 800px: */
+@media screen and (max-width: 800px) {
+    .days-container{
+        flex-direction: row;
+    }
+}
+.list-days-title{
+    padding: 10px;
+    color: white;
+    text-align: center;
+    background-color: #5d6d7e;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+/* Use a media query to add a breakpoint at 800px: */
+@media screen and (max-width: 800px) {
+    .list-days-title{
+        display:none;
+    }
+}
+
+
+.day-create-form{
+    display: none;
+    position: relative;
+    margin-bottom: 0px;
+    flex-direction: row;
+    background-color:  #5d6d7e ;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.day-consumption-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    min-width: 150px;
+    padding: 0px;
+}
+/* Use a media query to add a breakpoint at 800px: */
+@media screen and (max-width: 800px) {
+    .day-consumption-card{
+        display: flex;
+        flex-direction: column;
+    }
+}
+.day-consumption-item{
+    border : none;
+}
+
+.title-row-container{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    background-color:  #283747 ;
+    gap: 10px;
+    margin: 5px;
+    color : white;
+}
+.title-row-item{
+    display: flex;
+    justify-content:end;
+    text-align: center;
+    align-items: center;
+}
+.principal{
+    flex:3;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+.secondary{
+    flex:1;
+}
+
+.graph-row-container{
+    display: flex;
+    flex-direction: row;
+    background-color:  #515e6d ;
+    gap: 10px;
+    margin: 5px;
+}
+
+.main-row-container{
+    display: flex;
+    flex-direction: column;
+    background-color:  #515e6d ;
+}
+.right-graph-day-container{
+    display: flex;
+    flex-direction: row;
+    flex : 5;
+}
+@media screen and (max-width: 800px) {
+    .right-graph-day-container{
+        flex-direction: column;
+    }
+}
+
+.graph-day-container{
+    display: flex;
+    flex : 5;
+    background-color: #515e6d;
+    min-height: 100px;
+}
+
+.indicator-menu-container{
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    justify-content:baseline;
+    align-items: center;
+    gap : 10px;
+}
+
+.graph-type-container{
+    display: flex;
+    flex:3;
+    flex-direction: column;
+    padding: 10px;
+    gap: 20px;
+    background-color: #283747;
+    justify-content: center;
+    align-items: center;
+}
+@media screen and (max-width: 800px) {
+    .graph-type-container{
+        padding: 0px;
+    }
+}
+
+.indicator-menu-item{
+    display: flex;
+    flex-direction: row;
+    flex : 1;
+    background-color: #283747;
+    color : white;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 4px;
+    border: 1px solid #283747;
+    cursor: pointer;
+}
+.indicator-menu-item:hover{
+    background-color:  #34495e ;
+    box-shadow: 0px 0px 10px -6px rgba(0,0,0,0.23);
+    border: 1px solid white;
+}
+@media screen and (max-width: 800px) {
+    .indicator-menu-item{
+        font-size:0.9em;
+        padding: 2px;
+    }
+}
+    
+
+
+
+.food-consumption-list{
+    display: block;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    background-color: #5d6d7e;
+    height: 100vh;
+    overflow: scroll;
+}
+
+.food-consumption-item{
+    display: flex;
+    background-color: #283747;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2px;
+}
+
+
+
+
+.button-get-details-day-consumption{
+    display: flex;
+    border:0px;
+    flex-direction: row;
+    background-color:  #283747 ;
+    align-items: center;
+    text-align: center;
+    flex : 1;
+    padding: 10px;
+    color :  #d7dbdd ;
+}
+/* Use a media query to add a breakpoint at 800px: */
+@media screen and (max-width: 800px) {
+    .button-get-details-day-consumption{
+        padding: 10px;
+        display: flex;
+    }
+}
+.button-get-details-day-consumption:hover{
+    background-color:  #34495e ;
+}
+.text{
+    display: flex;
+    flex:5;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-get-details-food-consumption{
+    display: flex;
+    flex-direction: row;
+    border: 0px;
+    background-color: #283747;
+    justify-content: center;
+    flex : 1;
+    padding: 10px;
+    color :  #d7dbdd ;
+}
+.button-get-details-food-consumption:hover{
+    background-color:  #34495e ;
+}
+.get-details-food-consumption{
+    display: flex;
+    flex-direction: row;
+    border: 0px;
+    justify-content: center;
+    flex : 1;
+    padding: 10px;
+    color :  #d7dbdd ;
+}
+.button-create-day-consumption{
+    border:0px;
+    padding: 10px;
+    color : white;
+    background-color: #283747;
+    border-radius: 5px;
+}
+.button-create-day-consumption:hover{
+    background-color:  #34495e ;
+}
+.button-create-food-consumption{
+    background-color:  #283747 ;
+    border: 0px;
+    padding: 10px;
+    color : white;
+    border-radius: 5px;
+
+}
+.button-create-food-consumption:hover{
+    background-color:  #34495e ;
+}
+.invalid-box{
+    border: 1px red solid;
+}
+
+.invalid{
+    color : red;
+    display: none;
+}
+
+.selectionned-day-consumption{
+    background-color: #5d6d7e;
+}
+.selectionned-day-consumption:hover{
+    background-color: #5d6d7e;
+}
+
+.food{
+    display: flex;
+    flex-direction: row;
+    flex:1;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.food-item-trash-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #283747;
+    border: 0px;
+}
+.food-item-trash-container:hover{
+    background-color:  #34495e ;
+}
+
+.food-item-select-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 0px;
+}
+
+.food-item-container{
+    display: flex;
+    flex:1;
+}
+.food-item-container:hover{
+    background-color:  #34495e ;
+}
+.food-item-column{
+    flex : 3;
+}
+.food-item-column-extanded{
+    flex : 8;
+}
+.food-item-first-column{
+    flex : 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rect-color{
+    width: 20px;
+    height: 20px;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+.rect-color-challenge{
+    width: 13px;
+}
+/* Use a media query to add a breakpoint at 800px: */
+@media screen and (max-width: 800px) {
+    .rect-color-challenge{
+        min-height: 10px;
+        width: 100%;
+    }
+    .rect-color{
+        display: none;
+    }
+}
+
+.modal-title-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.modal-title{
+    font-size: 25px;
+}
+.modal-footer{
+    display: block;
+}
+.modal-footer-row{
+    display: flex;
+    gap:10px;
+    flex-direction: row;
+    justify-content: end;
+}
+.dropdown-item-delete{
+    color: rgb(218, 62, 62);
+}
+.text-carbon-footprint{
+    text-align: center;
+    font-size: 3em;
+
+}
+
+.container-carbon-footprint{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;
+
+}
+p{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.container-resume-indicator{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;
+
+}
+.quantity-carbon-footprint{
+    font-size: 3em;
+    font-weight: 600;
+    color : white;
+}
+.unit-carbon-footprint{
+    display: flex;
+    color: gray;
+    align-items: end;
+}
+
+.expand-button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 10px;
+    background-color:  #515e6d ;
+
+}
+.details-button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+.details-button{
+    display: flex;
+    flex : 1;
+    justify-content: space-around;
+    background-color: red;
+    background-color:  #283747 ;
+    border: none;
+    color:white;
+    padding: 10px;
+    margin: 4px;    
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    border: 1px solid #283747;
+}
+
+.details-button:hover{
+    background-color:  #34495e ;
+    box-shadow: 0px 0px 10px -6px rgba(0,0,0,0.23);
+    border: 1px solid white;
+
+}
+.update-metadata-button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+.update-metadata-button{
+    display: flex;
+    justify-content: right;
+    background-color: red;
+    background-color:  #283747 ;
+    border: none;
+    color:white;
+    padding: 10px;
+    margin: 4px;    
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    border: 1px solid #283747;
+}
+
+/* Use a media query to add a breakpoint at 800px: */
+@media screen and (max-width: 800px) {
+    .details-button-label{
+        display: none;
+    }
+}
+
+.modal-content{
+    background-color: #283747;
+    color : white;
+    width: 80%;
+}
+input[type=text]{
+    background-color: #283747;
+    color: white;
+}
+.select-option{
+    background-color: #283747;
+    padding: 10px;
+    color : white;
+}
+.form-food-consumption{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.form-label{
+    color: white !important;
+}
+.form-control{
+    display: flex;
+    padding: 10px;
+}
+.dropdown-menu, .form-control, .form-select{
+    --bs-body-bg : #283747 !important;
+    --bs-body-color : white !important;
+    --bs-tertiary-bg : #0d6efd !important;
+    --bs-secondary-color : grey !important;
+
+    max-width: 500px;
+    overflow:scroll;
+}
+.dropdown-menu:hover{
+    --bs-body-bg : #283747 !important;
+    --bs-body-color : white !important;
+}
+.no-results{
+    background-color: #283747 !important;
+    color : white !important;
+}
+#list-import-day-consumption{
+    max-height: 300px;
+    overflow: scroll;
+}
+.day-consumption-list{
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+}
+/* Use a media query to add a breakpoint at 800px: */
+@media screen and (max-width: 800px) {
+    .day-consumption-list{
+        display: flex;
+        flex-direction: row;
+    }
+}
+.bootstrap-select:not(.input-group-btn){
+    display: block;
+}
+.dropdown-toggle{
+    border : 1px white solid;
+}
+.dropdown-item{
+    white-space: initial;
+}
+.info{
+    background-color: #485664;
+    padding: 10px;
+    border : 1px solid grey;
+    color : white;
+    border-radius: 5px;
+}
+
+.add-food-consumption-container{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color:  #5d6d7e ;
+    padding : 10px;
+}
+.challenge-create-container{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.challenge-create{
+    border:0px;
+    padding: 10px;
+    color : white;
+    background-color: #283747;
+    border-radius: 5px;
+    text-decoration: none;
+
+}
+.hide{
+    display: none;
+}
+.display{
+    display: flex;
+}
+
+
+.goal-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    
+}
+.goal-title{
+    font-size: 1em;
+    color: #2ecc71;
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+}
+
+.goal-quantity-carbon-footprint{
+    font-size: 1em;
+    font-weight: 200;
+    color: #2ecc71;
+    justify-content: center;
+}
+.goal-unit-carbon-footprint{
+    font-size: 0.8em;
+    display: flex;
+    color: #2ecc71;
+    justify-content: center;
+}
+.share-container{
+    min-width: 130px;
+    display: flex;
+}
+
+.row-update-day-consumption-metadata{
+    display: flex;
+    flex-direction:row;
+    background-color: blue;
+    padding: 10px;
+    flex:1;
+}
+.col-update-day-consumption-metadata{
+    flex:1;
+    background-color: green;
+}
+
+.food-item-unit{
+    font-size:0.8em;
+}
+
+
+
+.chosen-container, .chosen-single, .chosen-container-single{
+    background-color: #283747 !important;
+    color : white !important;
+    background:none !important;
+    -webkit-box-shadow: none !important;
+    font-size:1em !important;
+}
+.chosen-single{
+    padding: 10px 10px 10px 8px !important;
+    height: 50px !important;
+    font-size:1.3em !important;
+
+}
+.chosen-drop{
+    background-color: #283747 !important;
+}
+
+.form-modal{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

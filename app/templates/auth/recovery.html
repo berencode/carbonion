@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="content">
+
+        <div class="signin-container">
+            <form class = "signin-form" method = "POST">
+                <div class="form-header">
+                  Carb
+                  <img src="{{ url_for('static', filename='assets/images/logo.png') }}" class="logo">
+                  nion
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Adresse Mail de récupération</label>
+                  <input type="text" class="form-control" name="mail" aria-describedby="emailHelp">
+                  <div id="emailHelp" class="form-text">Nous ne partageons votre adresse mail avec personne d'autre</div>
+                </div>
+                <button type="submit" class="btn btn-primary">Envoyer mail de réinitialisation</button>
+            </form>
+        </div>          
+    </div>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/signin.css') }}">
+{% endblock %}

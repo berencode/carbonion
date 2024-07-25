@@ -1,0 +1,122 @@
+.review-graph{
+    background-color: rgb(240, 240, 240);
+    color : black !important;
+}
+.review-container{
+    display: flex;
+    flex:1;
+    flex-direction: column;
+}
+
+.challenge-top-bar{
+    background-color: #34495e;
+}
+
+.challenge-navigator-precedent{
+    padding: 5px;
+    border:0px;
+    padding: 10px;
+    color : white;
+    background-color: #3f90e2;
+    border-radius: 5px;
+}
+
+.review-nav-container{
+    padding: 5px;
+    background-color: #34495e;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+}
+
+.review-previous{
+    border:0px;
+    padding: 10px;
+    color : white;
+    background-color: #283747;
+    border-radius: 5px;
+}
+.review-page{
+    padding: 10px;
+    background-color: #283747;
+}
+.review-next{
+    border:0px;
+    padding: 10px;
+    color : white;
+    background-color: #283747;
+    border-radius: 5px;
+}
+.review-previous:hover{
+    background-color: #34495e;
+}
+.review-next:hover{
+    background-color: #34495e;
+}
+.review-item-tab{
+    border:0px;
+    padding: 10px;
+    color : white;
+    background-color: #34495e;
+}
+.review-item-tab-active{
+    background-color: rgb(240, 240, 240) !important;
+    color : black !important;
+}
+.review-item-tab-row{
+    display: flex;
+    flex-direction: row;
+}
+.review-item-tab-name{
+    display: flex;
+}
+.review-item-tab-logo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #34495e;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 5px 5px 0px 0px;
+    color: white;
+
+}
+.indicator-menu-container{
+    display: flex;
+    flex-direction: column;
+    background-color: #283747;
+    gap: 10px;
+    padding-right: 5px;
+}
+@media screen and (max-width: 430px) {
+    .indicator-menu-container{
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+.indicator-menu-item{
+    display: flex;
+    flex-direction: row;
+    flex : 1;
+    background-color: #34495e;
+    color : white;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 4px;
+    border: 1px solid #283747;
+    cursor: pointer;
+}
+.indicator-menu-item:hover{
+    background-color:  #34495e ;
+    box-shadow: 0px 0px 10px -6px rgba(0,0,0,0.23);
+    border: 1px solid white;
+}
+@media screen and (max-width: 800px) {
+    .indicator-menu-item{
+        font-size:0.9em;
+        padding: 4px;
+        border: 1px solid grey;
+    }
+}
+    

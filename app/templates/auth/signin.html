@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="content">
+        <div class="signin-container">
+            <form class = "signin-form" method = "POST">
+                <div class="form-header">
+                  Carb
+                  <img src="{{ url_for('static', filename='assets/images/logo.png') }}" class="logo">
+                  nion
+                </div>
+                {% if comment %}
+                  <div class="comment-message">
+                    {% if comment == 'from_signup' %}
+                      Avant de vous connecter, procéder à l'activation de votre compte à travers le mail que vous avez reçu
+                    {% elif comment == 'from_reset_password' %}
+                      Votre mot de passe a bien été mis à jour
+                    {% elif comment == 'from_activate_account' %}
+                      <p>Votre compte a bien été activé</p> 
+                      <p>Connectez-vous dès-maintenant pour accéder au site</p>
+                    {% endif %}
+                  </div>
+                {% endif %}
+                {% if error %}
+                  <div class="error-message">
+                    {% if error == 'issue' %}
+                      Adresse mail ou mot de passe invalide
+                    {% endif %}
+                    {% if error == 'not_activated' %}
+                      <p>Ce compte n'est pas encore activé</p>
+                      <p> Pensez à vérifier vos spams pour trouver le mail d'activation de votre compte </p>
+                    {% endif %}
+                  </div>
+                {% endif %}
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Adresse Mail</label>
+                  <input type="text" class="form-control" name="mail" aria-describedby="emailHelp">
+                  <!--<div id="emailHelp" class="form-text">Nous ne partageons votre adresse mail avec personne d'autre</div> -->
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
+                  <input type="password" class="form-control" name="password">
+                </div>
+                <div class="mb-3 form-check">
+                  <a class="nav-link" href="{{ url_for('auth.forgot') }}">Mot de passe oublié</a>
+                </div>
+                <button type="submit"  name="login" class="btn btn-primary">Se connecter</button>
+            </form>
+            <a class="nav-link" href="{{ url_for('auth.signup') }}">Pas encore inscrit ? </a>
+
+        </div>          
+    </div>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/signin.css') }}">
+{% endblock %}

@@ -1,0 +1,33 @@
+.content{
+    margin-left: auto;
+    margin-right: auto;
+}
+body{
+    background-color: #131a22;
+    color : #c4cbd4;
+}
+html{
+    background-color: #131a22;
+}
+
+.navbar{
+    background-color: #283747 !important;
+    color : white !important;
+    --bs-body-bg : #283747 !important;
+    --bs-body-color : white !important;
+    --bs-tertiary-bg : #0d6efd !important;
+    --bs-secondary-color : grey !important;
+}
+.nav-link{
+    color : white !important;
+}
+
+.logo{
+    display: block;
+    width: 30px;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}

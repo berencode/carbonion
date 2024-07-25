@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <script
+    src="{{ url_for('static', filename='js/index.js') }}"
+    type="module"
+    ></script>
+    <div class="content">
+        <div class = "header-content">
+            <div class="svg-container">
+                <img src="{{ url_for('static', filename='assets/images/font1.svg') }}" class="svg-img">
+                <div class="text">
+                    <div class="form-header">
+                        <img src="{{ url_for('static', filename='assets/images/logo.png') }}" class="logo">
+                    </div>
+                    <p><span class="title"> Bienvenue sur Carbonion </span></p>
+                    <p><span class="subtitle">Le site de quantification de l'empreinte carbone de son alimentation</span></p>
+                        <!--<span class="hidden"> Créé par des personnes convaincues que l'heure n'en est plus à la quantification mais à l'action </p>-->
+                    <!--<p><span class="hidden"> Car la quantification précède l'action</span></p>-->
+                  
+                </div>
+            </div>
+        </div>
+        <div class = "section-main-container">
+            <div class = "section-container">
+                <div class = "section-row">
+                    <div class = "section">
+                        <div class = "section-column">
+                            <h5> Carbonion en bref</h5>
+                            <p>
+                                Grace à <span class="emphasis">Carbonion</span>, saisissez vos repas jour après jour.
+                                Obtenez l'empreinte carbone de vos aliments et visualisez vos résultats dans des graphiques.
+                            </p>
+                            <p>
+                                Mettez-vous au défi pour une période allant de 7 à 21 jours !
+                            </p>
+                        </div>
+                        <div class = "section-column-image">
+                            <img src="{{ url_for('static', filename='assets/images/example1.png') }}" class="example1">
+                        </div>
+                    </div>
+                </div>
+                <div class = "section-row">
+                    <div class = "section">
+                        <div class = "section-column">
+                            <h5> Origine des données </h5>
+                            <p>
+                                Les données utilisées sont issues de la base de données Agribalyse, fournissant des indicateurs 
+                                environnementaux pour les produits agricoles et alimentaires.  
+                            </p>
+                            <p>
+                                <span class="emphasis"> Source ADEME, données AGRIBALYSE v3.1.1 – 2023 </span>
+                            </p>
+                        </div>
+                        <div class = "section-column-image">
+                            <img src="{{ url_for('static', filename='assets/images/logo_agribalyse.png') }}" class="example2">
+                        </div>
+                    </div>
+                    <div class = "section">
+                        <div class = "section-column">
+                            <h5> Actualité(s) </h5>
+                            <div class="news-container" id = "news-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class = "header-content">
+            <div class="svg-container">
+                <img src="{{ url_for('static', filename='assets/images/font2.svg') }}" class="svg-img-footer">
+            </div>
+        </div>
+    </div>
+    <div class = "footer">
+        <div class = "footer-item">
+         {{instance_name}}
+        </div>
+        <div class = "footer-item">
+            Fait avec &#x1F49A;  par berencode
+        </div>
+        <div class = "footer-item">
+            <a class="nav-link" href="{{ url_for('main.mentions_legales') }}">Mentions légales</a>
+        </div>
+        <div class = "footer-item">
+            Voir le code
+        </div>
+        <div class = "footer-item">
+            {{version}}
+        </div>
+    </div>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+
+

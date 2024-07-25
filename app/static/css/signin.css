@@ -1,0 +1,97 @@
+.main-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color : white;
+}
+.form{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    max-width: 50%;
+    color : white;
+    background-color: rgb(230, 230, 230);
+    border-radius: 10px;
+}
+.form-label{
+    color : white;
+}
+.form-header{
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    border-bottom: 1px white solid;
+    padding: 10px;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+.signin-container{
+    padding: 10px;
+    flex : 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.signin-form{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    padding: 10px;
+    margin-top : 30px;
+    background-color: #34495e;
+    border-radius: 10px;
+}
+
+
+
+
+
+input[type=text]{
+    background-color: #283747;
+    color: white;
+}
+.select-option{
+    background-color: #283747;
+    padding: 10px;
+    color : white;
+}
+.dropdown-menu, .form-control, .form-select{
+    --bs-body-bg : #283747 !important;
+    --bs-body-color : white !important;
+    --bs-tertiary-bg : #0d6efd !important;
+    --bs-secondary-color : grey !important;
+
+    max-width: 500px;
+    overflow:scroll;
+}
+.dropdown-menu:hover{
+    --bs-body-bg : #283747 !important;
+    --bs-body-color : white !important;
+}
+
+.comment-message{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    color: rgb(51, 200, 51);
+    font-weight: bold;
+    padding: 5px;
+}
+
+.error-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    color: rgb(238, 90, 90);;
+    font-weight: bold;
+    padding: 5px;
+}

@@ -1,0 +1,356 @@
+# swagger.yml
+
+openapi: 3.0.0
+info:
+  title: "RP Flask REST API"
+  description: "An API about people and notes"
+  version: "1.0.0"
+
+servers:
+  - url: "/api"
+
+components:
+  schemas:
+    DayConsumption:
+      type: "object"
+      properties:
+        day_consumption_id : 
+          type : "string"
+        date : 
+          type : "string"
+          format: date 
+        commentary:
+          type: "string"
+        user_id:
+          type: "string"
+        is_finished:
+          type: "boolean"
+    FoodConsumption:
+      type: "object"
+      properties:
+        food_consumption_id:
+          type: "string"
+        ref_id:
+          type: "string"
+        quantity:
+          type: "number"
+        unit:
+          type : "string"
+        color:
+          type : "string"
+    Challenge:
+      type: "object"
+      properties:
+        challenge_id:
+          type: "string"
+        date:
+          type : "string"
+          format: date
+        status:
+          type : "number"
+        day_number : 
+          type : "number"
+    Food:
+      type: "object"
+      properties:
+        code_agb:
+          type: "string"
+        groupe_aliment:
+          type : "string"
+    New:
+      type: "object"
+      properties:
+        new_id:
+          type: "string"
+
+    Indicator:
+      type: "object"
+      properties:
+        indicator_id: 
+          type: "string"
+        label: 
+          type: "string"
+        color: 
+          type: "string"
+        unit: 
+          type: "string"
+      
+  parameters:
+      user_id:
+        name: "user_id"
+        description: "Identifiant de l'utilisateur"
+        in: path
+        required: True
+        schema:
+          type: "string"
+      day_consumption_id:
+        name: "day_consumption_id"
+        description: "Identifiant du jour de consommation"
+        in: path
+        required: True
+        schema:
+          type: "string"
+      food_consumption_id:
+        name: "food_consumption_id"
+        description: "Identifiant de la consommation d'aliment"
+        in: path
+        required: True
+        schema:
+          type: "string"
+      challenge_id:
+        name: "challenge_id"
+        description: "Identifiant du challenge"
+        in: path
+        required: True
+        schema:
+          type: "string"
+      code_agb:
+        name: "code_agb"
+        description: "Identifiant de l'aliment"
+        in: path
+        required: True
+        schema:
+          type: "string"
+      new_id:
+        name: "new_id"
+        description: "Identifiant de l'actualité"
+        in: path
+        required: True
+        schema:
+          type: "string"
+      indicator_id:
+        name: "indicator_id"
+        description : "Identifiant de l'indicateur"
+        in: path
+        required: True
+        schema:
+          type: "string"
+
+paths:
+  /food:
+    get :
+      operationId: "api.food.read_all"
+      tags:
+        - Food
+      summary: "Read all Foods"
+      responses:
+        "200":
+          description: "Successfully read foods"
+  /food/{code_agb}:
+    get :
+      operationId: "api.food.read_one"
+      tags:
+        - Food
+      summary: "Read a specific food"
+      parameters:
+        - $ref: "#/components/parameters/code_agb"
+      responses:
+        "201":
+          description: "Successfully read a food"
+    
+  /day_consumption/{day_consumption_id}:
+    get :
+      operationId: "api.day_consumption.read_one"
+      tags:
+        - DayConsumption
+      summary: "Read a specific day_consumption"
+      parameters:
+        - $ref: "#/components/parameters/day_consumption_id"
+      responses:
+        "201":
+          description: "Successfully read a day_consumptions"
+    delete :
+      operationId: "api.day_consumption.delete"
+      tags:
+        - DayConsumption
+      summary: "Delete a person"
+      parameters:
+        - $ref: "#/components/parameters/day_consumption_id"
+      responses:
+        "204":
+          description: "Successfully deleted person"
+    put : 
+      operationId: "api.day_consumption.update"
+      tags:
+        - DayConsumption
+      summary: "Update a day consumption"
+      parameters:
+        - $ref: "#/components/parameters/day_consumption_id"
+      responses:
+        "204":
+          description: "Successfully updated day_consumption"    
+      requestBody:
+        description: "How to update day consumption"
+        content:
+          application/json:
+            schema:
+              x-body-name: "day_consumption"
+              $ref: "#/components/schemas/DayConsumption"
+  /day_consumption:
+    get :
+      operationId: "api.day_consumption.read_all"
+      tags:
+        - DayConsumption
+      summary: "Read all day_consumption"
+      responses:
+        "200":
+          description: "Successfully read day_consumptions"
+    post:
+      operationId: "api.day_consumption.create"
+      tags:
+        - DayConsumption
+      summary: "Create new day consumption for the user"
+      requestBody:
+        description: "Day consumption to create"
+        content:
+          application/json:
+            schema:
+              x-body-name: "day_consumption"
+              $ref: "#/components/schemas/DayConsumption"
+      responses:
+            "201":
+              description: "Successfully create new day consumption for the user"
+  /food_consumption:
+    get :
+      operationId: "api.food_consumption.read_all"
+      tags:
+        - FoodConsumption
+      summary: "Read all food_consumption"
+      responses:
+        "200":
+          description: "Successfully read food_consumptions"
+    post:
+      operationId: "api.food_consumption.create"
+      tags:
+        - FoodConsumption
+      summary: "Create new food_consumption for the user"
+      requestBody:
+        description: "Food consumption to create"
+        content:
+          application/json:
+            schema:
+              x-body-name: "food_consumption"
+              $ref: "#/components/schemas/FoodConsumption"
+      responses:
+            "201":
+              description: "Successfully create new food consumption for the user"
+  /food_consumption/{day_consumption_id}:
+    get :
+      operationId: "api.food_consumption.read_all_for_day"
+      tags:
+        - FoodConsumption
+      summary: "Read a specific day_consumption"
+      parameters:
+        - $ref: "#/components/parameters/day_consumption_id"
+      responses:
+        "201":
+          description: "Successfully read a day_consumptions"
+  /food_consumption/{food_consumption_id}:
+    put : 
+        operationId: "api.food_consumption.update"
+        tags:
+          - FoodConsumption
+        summary: "Update a food consumption"
+        parameters:
+          - $ref: "#/components/parameters/food_consumption_id"
+        responses:
+          "201":
+            description: "Successfully updated the food consumption"    
+        requestBody:
+          description: "How to update food consumption"
+          content:
+            application/json:
+              schema:
+                x-body-name: "food_consumption"
+                $ref: "#/components/schemas/FoodConsumption"
+    delete :
+      operationId: "api.food_consumption.delete"
+      tags:
+        - FoodConsumption
+      summary: "Delete a food consumption"
+      parameters:
+        - $ref: "#/components/parameters/food_consumption_id"
+      responses:
+        "204":
+          description: "Successfully deleted a foodConsumption"
+  /challenge:
+    post:
+      operationId: "api.challenge.create"
+      tags:
+        - Challenge
+      summary: "Create new challenge for the user"
+      requestBody:
+        description: "Challenge to create"
+        content:
+          application/json:
+            schema:
+              x-body-name: "challenge"
+              $ref: "#/components/schemas/Challenge"
+      responses:
+            "201":
+              description: "Successfully create new challenge for the user"
+    get :
+        operationId: "api.challenge.read_all"
+        tags:
+          - Challenge
+        summary: "Read all challenges for a specific user_id" 
+        responses:
+          "201":
+            description: "Successfully read all challenges"
+  /challenge/{challenge_id}:
+    get :
+      operationId: "api.challenge.read_one"
+      tags:
+        - Challenge
+      summary: "Read a specific challenge"
+      parameters:
+        - $ref: "#/components/parameters/challenge_id"
+      responses:
+        "201":
+          description: "Successfully read a challenge"
+    put : 
+      operationId: "api.challenge.update"
+      tags:
+        - Challenge
+      summary: "Update a challenge"
+      parameters:
+        - $ref: "#/components/parameters/challenge_id"
+      responses:
+        "204":
+          description: "Successfully updated challenge"    
+      requestBody:
+        description: "How to update the challenge"
+        content:
+          application/json:
+            schema:
+              x-body-name: "challenge"
+              $ref: "#/components/schemas/Challenge"
+    delete :
+      operationId: "api.challenge.delete"
+      tags:
+        - Challenge
+      summary: "Delete a challenge"
+      parameters:
+        - $ref: "#/components/parameters/challenge_id"
+      responses:
+        "204":
+          description: "Successfully deleted a challenge and it's content"
+  /new:
+    get :
+        operationId: "api.new.read_all"
+        tags:
+          - New
+        summary: "Read all news" 
+        responses:
+          "201":
+            description: "Successfully read all news"
+
+  /indicator:
+    get:
+      operationId: "api.indicator.read_all"
+      tags:
+        - Indicator
+      summary : "Read all indicators"
+      responses:
+        "201":
+          description : "Successfully read all indicators"
