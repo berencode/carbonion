@@ -519,6 +519,21 @@ p{
     user-select: none; /* Standard syntax */
     border: 1px solid #283747;
 }
+.details-button-blocked {
+    display: flex;
+    flex: 1;
+    justify-content: space-around;
+    background-color: #2837478e; /* Muted color for blocked state */
+    border: none;
+    color: #bdc3c7b0; /* Muted text color for blocked state */
+    padding: 10px;
+    margin: 4px;
+    cursor: not-allowed; /* Indicate the button is not interactive */
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    border: 1px solid #95a5a6;
+}
 
 .details-button:hover{
     background-color:  #34495e ;

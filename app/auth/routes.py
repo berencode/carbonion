@@ -114,7 +114,6 @@ def forgot():
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
     if request.method == 'POST':
-        print("coucou ici")
         _mail = request.form.get('mail')
         if _mail != '':
             user = User.query.filter_by(mail = _mail).first()

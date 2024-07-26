@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import make_response, abort
+from flask import make_response, abort, session
 from api.day_consumption import create as create_day_consumption
 from api.day_consumption import read_one as read_one_day_consumption
 from api.day_consumption import delete as delete_day_consumption
@@ -52,14 +52,17 @@ def is_terminated(challenge_id):
     return False
 
 
-
-@login_required
 def create(challenge):
     """Création d'un nouveau challenge"""
     challenge['challenge_id'] = str(uuid.uuid1())
-
-    if all_challenge_terminated(current_user):
+    if(current_user.is_anonymous):
+        all_challenge_are_terminated = True
+        challenge['user_id'] = session.get('user_id')
+    else :
+        all_challenge_are_terminated = all_challenge_terminated(current_user)
         challenge['user_id'] = current_user.id
+    
+    if(all_challenge_are_terminated):
         challenge['color'] = get_random_color()
         challenge['name'] = "Nouveau challenge"
         for i in range(0, int(challenge['day_number'])):
@@ -76,10 +79,14 @@ def create(challenge):
 
     return {}, 201
 
-@login_required
 def read_all():
     """Lire tous les challenges de l'utilisateur courant"""
-    existing_challenges = Challenge.query.filter_by(user_id=current_user.id).all()
+    if current_user.is_anonymous:
+        user_id = session.get('user_id')
+    else :
+        user_id = current_user.id
+    print(user_id)
+    existing_challenges = Challenge.query.filter_by(user_id=user_id).all()
     if existing_challenges:
         challenges_schema = ChallengeSchema(many=True)
         challenges_data = challenges_schema.dump(existing_challenges)

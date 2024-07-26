@@ -3,7 +3,7 @@
 import { FoodConsumption, FoodConsumptionSelect} from "./food_consumption.js";
 
 export class DayConsumptionManager{
-  constructor(){
+  constructor(isDemo=false){
     this.listDaysConsumptions = document.querySelector(".day-consumption-list");
     this.foods = null;        // référentiel des aliments (à charger une seule fois)
     this.indicators = null;   // référentiel des indicateurs (à charger une seule fois)
@@ -14,6 +14,7 @@ export class DayConsumptionManager{
     this.loadChallenges();
     this.activateCreateDayButton();
     this.daysConsumptions = [];
+    this.isDemo = isDemo;
   }
 
   displayLoading(){
@@ -78,12 +79,15 @@ export class DayConsumptionManager{
         },
     }
     
+   
+
     fetch('/api/challenge', initObject)
         .then(response => 
                 response.json()
         )
         .then((challenges) => {
-            // mise à jour de la liste des challenges.
+                // mise à jour de la liste des challenges.
+                console.log("coucouuuuuu", challenges);
                 challenges.forEach(challenge => {
                     this.dictChallenges[challenge.challenge_id] = challenge;
                 });
@@ -388,7 +392,83 @@ export class DayConsumptionDetails{
 
     var date = new Date(Date.parse(this.dayConsumption.date));
 
-    console.log(this.dayConsumption.dataDayConsumption);
+    //Génération des boutons disponibles pour la gestion des consommations d'aliments
+    var configButtonsManageFoodConsumptions = {
+      'ajouter' : {
+          'label' : 'Ajouter',
+          'color' : '#2ecc71',
+          'class' : 'details-button', 
+          'id' : 'button-create-food-consumption', 
+          'data-feather' : 'plus-circle',
+          'data-action' : 'create',
+          'data-bs-toggle' : '',
+          'data-bs-target' : '',
+          'is-demo-acessible' : true
+      },
+      'importer': {
+          'label': 'Importer',
+          'color': '#bb8fce',
+          'class': 'details-button',
+          'id': 'button-import-food-consumption',
+          'data-feather': 'download',
+          'data-action': 'create',
+          'data-bs-toggle': 'modal',
+          'data-bs-target': '#importModal',
+          'is-demo-acessible' : false
+      },
+      'cloturer': {
+          'label': 'Cloturer',
+          'color': '#85c1e9',
+          'class': 'details-button',
+          'id': 'button-finish-food-consumption',
+          'data-feather': 'check-circle',
+          'data-action' : '',
+          'data-bs-toggle': 'modal',
+          'data-bs-target': '#confirmationModal',
+          'is-demo-acessible' : false
+      },
+      'partager': {
+          'label': 'Partager',
+          'color': '#aaac71',
+          'class': 'details-button',
+          'id': 'button-share-day-consumption',
+          'data-feather': 'share-2',
+          'data-action' : '',
+          'data-bs-toggle': 'modal',
+          'data-bs-target': '#shareModal',
+          'is-demo-acessible' : false
+      }
+    }
+
+    var buttonsManageFoodConsumptions = ``;
+    for (const [buttonManageFoodConsumptionsId, buttonManageFoodConsumptions] of Object.entries(configButtonsManageFoodConsumptions)){
+
+      var buttonClass = buttonManageFoodConsumptions['class'] ;
+      var dataAction = buttonManageFoodConsumptions['data-action'];
+      var dataToggle = buttonManageFoodConsumptions['data-bs-toggle'];
+      var dataTarget = buttonManageFoodConsumptions['data-bs-target'];
+      console.log(this.dayConsumption.dayConsumptionManager.isDemo);
+      if(buttonManageFoodConsumptions['is-demo-acessible'] == false && this.dayConsumption.dayConsumptionManager.isDemo){
+        buttonClass = 'details-button-blocked';
+        dataToggle = 'modal';
+        dataTarget = '#mustBeSignin';
+      };
+
+
+      buttonsManageFoodConsumptions += `
+        <button 
+            class = "${buttonClass}"
+            id ="${buttonManageFoodConsumptions['id']}" 
+            data-action="${dataAction}" 
+            data-bs-toggle="${dataToggle}" 
+            data-bs-target="${dataTarget}"
+        >
+                    <div class="details-button-label"> ${buttonManageFoodConsumptions['label']} </div>
+                    <i data-feather="${buttonManageFoodConsumptions['data-feather']}" color="${buttonManageFoodConsumptions['color']}"></i>
+        </button>`      
+    };
+
+
     var res = `
         <div class="day-consumption-details-card" data-day-consumption-id="${this.dayConsumptionId}">
 
@@ -453,22 +533,9 @@ export class DayConsumptionDetails{
               </button>
             </div>
             <div class = "details-button-container">
-                  <button class = "details-button" id ="button-create-food-consumption" data-action="create"> 
-                    <div class="details-button-label"> Ajouter </div>
-                    <i data-feather="plus-circle" color="#2ecc71"></i>
-                  </button>
-                  <button class = "details-button" id ="button-import-food-consumption" data-action="create" data-bs-toggle="modal" data-bs-target="#importModal">
-                    <div class="details-button-label"> Importer </div>
-                    <i data-feather="download" color="#bb8fce"></i>
-                  </button>
-                  <button class = "details-button" id ="button-finish-food-consumption"  data-bs-toggle="modal" data-bs-target="#confirmationModal">
-                    <div class="details-button-label">Cloturer</div>
-                    <i data-feather="check-circle" color="#85c1e9"></i>
-                  </button>
-                  <button class = "details-button" id ="button-share-day-consumption"  data-bs-toggle="modal" data-bs-target="#shareModal"> 
-                    <div class="details-button-label"> Partager </div>
-                    <i data-feather="share-2" color="#aaac71"></i>
-                  </button>
+                  `
+                  +buttonsManageFoodConsumptions+
+                  `
                   <input type="checkbox" class="btn-check"  id ="button-modify-food-consumption"  autocomplete="off">
                   <label class="details-button"  for="button-modify-food-consumption" >
                     <div class="details-button-label"> Supprimer </div>
@@ -484,7 +551,6 @@ export class DayConsumptionDetails{
     res = new DOMParser().parseFromString(res , 'text/html').childNodes[0].childNodes[1].childNodes[0];
     
     // Ajout de la liste des types d'indicateurs différents
-
     var indicatorButtons = res.getElementsByClassName("indicator-menu-item");
     for (var i = 0; i < indicatorButtons.length; i++) {
       indicatorButtons[i].addEventListener('click', function(event) {
