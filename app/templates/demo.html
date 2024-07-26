@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+    {% block content %}
+    <script
+        src="{{ url_for('static', filename='js/demo_index.js') }}"
+        type="module"
+    ></script>
+    
+
+    
+
+        <!-- Modal foodConsumption -->
+        <div class="modal fade" id="foodConsumption" tabindex="-1" aria-labelledby="foodConsumptionLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form id="form-food-consumption" class="row g-3 needs-validation form-food-consumption" novalidate> 
+
+                    <div class="modal-content">
+                        
+                        <div class="modal-header">
+                            <div class="modal-title-container">
+                                <h1 class="modal-title" id="foodConsumptionLabel">Modification de la consommation</h1>
+                                
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <div class="modal-footer-row">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                <button type="button" class="btn btn-primary" id="button-save-modal">Sauvegarder</button>
+                            </div>
+                        </div>
+                    </div> 
+                </form>      
+            </div>
+        </div>
+        <!-- Modal confirmation cloturer-->
+        <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form id="form-confirmation" class="row g-3 needs-validation form-modal" novalidate> 
+
+                    <div class="modal-content">
+                        
+                        <div class="modal-header">
+                            <div class="modal-title-container">
+                                <h1 class="modal-title" id="confirmationLabel">Confirmation</h1>
+                                
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        
+                        <div class="modal-body">
+                            <div class = 'modalContent'>
+                                Avez-vous terminé vos saisies pour ce jour de consommation ?
+                                Il vous sera possible d'annuler ce choix par la suite.
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="modal-footer-row">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                    <button type="button" class="btn btn-primary" id="button-yes-confirmation-modal">Oui</button>
+                            </div>
+                        </div>
+                    </div> 
+                </form>      
+            </div>
+        </div>
+        <!-- Modal share : TODO -->
+        <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form id="form-share" class="row g-3 needs-validation form-modal" novalidate> 
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="modal-title-container">
+                                <h1 class="modal-title" id="shareLabel">Partage</h1>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        
+                        <div class="modal-body">
+                            <div class = 'modalContent'>
+                                Cette option sera disponible prochainement !
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="modal-footer-row">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            </div>
+                        </div>
+                    </div> 
+                </form>
+            </div>
+        </div>
+        <!-- Modal importer-->
+        <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form id="form-import" class="row g-3 needs-validation form-modal" novalidate> 
+
+                    <div class="modal-content">
+                        
+                        <div class="modal-header">
+                            <div class="modal-title-container">
+                                <h1 class="modal-title" id="importLabel">Import</h1>
+                                
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        
+                        <div class="modal-body">
+                            <div class = 'modalContent'>
+                
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="modal-footer-row">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                    <button type="button" class="btn btn-primary" id="button-yes-import-modal">Importer</button>
+                            </div>
+                        </div>
+                    </div> 
+                </form>      
+            </div>
+        </div>
+        <!-- Modal mustBeSignin-->
+        <div class="modal fade" id="mustBeSignin" tabindex="-1" aria-labelledby="shareLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form id="form-share" class="row g-3 needs-validation form-modal" novalidate> 
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="modal-title-container">
+                                <h1 class="modal-title" id="shareLabel"> Inscription requise </h1>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        
+                        <div class="modal-body">
+                            <div class = 'modalContent'>
+                                Cette option n'est disponible que si vous vous créez un compte.
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="modal-footer-row">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            </div>
+                        </div>
+                    </div> 
+                </form>
+            </div>
+        </div>
+        
+        <div class = "content-loading">
+            <img src="{{ url_for('static', filename='assets/images/loading.gif') }}"  style="width:48px;height:48px;">
+        </div>
+        <div class = "content-loaded">
+            <div class = "list-days-container">
+                <div class="day-consumption-list">
+
+                </div>
+                <div id="contentBottom"></div>
+            </div>
+
+            <div class="statement-container">
+                <div class="days-container">                
+                    <div class = "add-day-container">
+                            {% include "day_consumption/day_consumption_create_form.html" %}
+                    </div>
+                </div>
+                {% include "day_consumption/day_consumption_details.html" %}
+
+            </div>
+
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/statement.css') }}">
+        </div>
+{% endblock %}
