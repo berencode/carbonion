@@ -1,5 +1,3 @@
-#from flask import Flask
-#from app.extensions import db
 from flask import render_template
 from flask_login import LoginManager
 import config
@@ -29,6 +27,9 @@ app.register_blueprint(auth_bp, url_prefix='/auth')
 
 from statement import bp as statement_bp
 app.register_blueprint(statement_bp, url_prefix='/statement')
+
+from demo import bp as demo_bp
+app.register_blueprint(demo_bp, url_prefix='/demo')
 
 from challenge import bp as challenge_bp
 app.register_blueprint(challenge_bp, url_prefix='/challenge')

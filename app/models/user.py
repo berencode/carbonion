@@ -53,7 +53,6 @@ class User(UserMixin, db.Model):
             return None
         return User.query.get(user_id)
     
-    
 class UserSchema(ma.SQLAlchemyAutoSchema):
     """doc"""
     class Meta:
