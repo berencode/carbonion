@@ -59,6 +59,7 @@
 @media screen and (max-width: 800px) {
     .list-days-container{
         max-width: 90%;
+        min-width:89%;
         min-height: 3vh;
     }
 }
@@ -627,6 +628,7 @@ input[type=text]{
     .day-consumption-list{
         display: flex;
         flex-direction: row;
+        min-width:100%;
     }
 }
 .bootstrap-select:not(.input-group-btn){
