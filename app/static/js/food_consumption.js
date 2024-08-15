@@ -43,6 +43,10 @@ export class FoodConsumption{
         this.dayConsumptionDetails.update();
         this.foodConsumptionGetDetailsButton.refresh();
     }
+    updateIndicator(){
+        this.computeIndicator();
+        this.foodConsumptionGetDetailsButton.refresh();
+    }
 }
 
 
@@ -131,7 +135,7 @@ export class FoodConsumptionModal{
         var newModalBody = new DOMParser().parseFromString(modalBodyContent, 'text/html').childNodes[0].childNodes[1].childNodes[0];
         modalBody.replaceChildren(newModalBody);
 
-        $('.chosen-select').chosen({width: "100%"});
+        //$('.chosen-select').chosen({width: "100%"});
 
         /* MISE EN PLACE DES DIFFÉRENTS ÉVÊNEMENTS LIÉS AU MODAL*/
         var inputQuantity = modalBody.querySelector("#input-quantity");
@@ -149,10 +153,6 @@ export class FoodConsumptionModal{
             this.onRefreshValues.bind(this)
         );
 
-        $("#input-food-type").chosen().change(this.onRefreshValues.bind(this));
-        $("#input-food-type").chosen().change(this.refreshColor.bind(this));
-
-
 
         // Soumission du formulaire de modification de la consommation d'aliments
         buttonSaveModal.addEventListener(
@@ -162,6 +162,15 @@ export class FoodConsumptionModal{
         
         //$('select').selectpicker();
         $('#foodConsumption').modal('show');
+
+
+        console.log($("#foodConsumption"));
+        console.log($('#input-food-type'));
+
+        $('#input-food-type').select2({
+            dropdownParent: $("#foodConsumption"),
+            placeholderOption: 'first'
+        });
     }
 
     onRefreshValues(){

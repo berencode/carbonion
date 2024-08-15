@@ -246,7 +246,12 @@
         padding: 2px;
     }
 }
-    
+
+.indicator-selectionned{
+    background-color:  #34495e ;
+    box-shadow: 0px 0px 10px -6px rgba(0,0,0,0.23);
+    border: 1px solid white;
+}
 
 
 
@@ -678,7 +683,6 @@ input[type=text]{
 .display{
     display: flex;
 }
-
 
 .goal-container{
     display: flex;
