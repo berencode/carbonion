@@ -477,16 +477,25 @@ export class ChallengeDetails{
         // mise à jour du corps du challenge-details
         console.log("openSettings")
         document.querySelector('.challenge-details-body').replaceChildren(this.ChallengeSettingsForm.getHtmlRender());
+        
+        console.log(document.querySelector('.challenge-details-body').innerHTML);
 
-        //$('select').selectpicker();
-        $('.chosen-select').chosen({width: "100%"});
+        $('.chosen-select').select2({
+            width : '100%',
+            dropdownParent: $("#challengeDetailsModal")
+        });
 
-        feather.replace();
+        
+
+        //feather.replace();
     }
 
     display(){
+        
+
         console.log("display CHallengeDetails");
         $('#challengeDetailsModal').modal('show');
+
         
         // mise à jour du corps du modal 
         document.querySelector('.modalContent').replaceChildren(this.getHtmlRender());
@@ -501,5 +510,6 @@ export class ChallengeDetails{
         this.getReview();
 
         feather.replace();
+    
     }
 }

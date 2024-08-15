@@ -354,6 +354,11 @@ export class DayConsumptionDetails{
 
     // mise à jour du résumé des indicateurs
     this.resumeIndicators.display();
+
+    // mise à jour des jours de consommations
+    this.foodConsumptions.forEach((foodConsumption, index)=>{
+      foodConsumption.updateIndicator()
+    })
   }
 
   delete(foodConsumption){
@@ -387,7 +392,11 @@ export class DayConsumptionDetails{
     var indicatorsMenuOptions = ``;
     var indicators = this.dayConsumption.dayConsumptionManager.indicators;
     for (const [indicator_id, indicator] of Object.entries(indicators)){
-      indicatorsMenuOptions += `<button class ="indicator-menu-item" indicator-id="${indicator_id}"> ${indicator['label']} </button>`        
+      var class_selectionned = ""
+      if(this.dayConsumption.dayConsumptionManager.currentIndicator == indicator_id){
+        class_selectionned = "indicator-selectionned"
+      }
+      indicatorsMenuOptions += `<button class ="indicator-menu-item ${class_selectionned}" indicator-id="${indicator_id}"> ${indicator['label']} </button>`        
     };
 
     var date = new Date(Date.parse(this.dayConsumption.date));
@@ -672,9 +681,17 @@ export class DayConsumptionDetails{
       
   }
   onClickUpdateIndicator(indicatorId){
+    // Déselection de l'ancien bouton
+    var getDetailsButton = document.querySelector('[indicator-id="'+this.dayConsumption.dayConsumptionManager.currentIndicator+'"]')
+    getDetailsButton.classList.remove('indicator-selectionned')
+
     this.dayConsumption.dayConsumptionManager.currentIndicator = indicatorId;
-    console.log(this.dayConsumption.dayConsumptionManager.currentIndicator);
-    this.display()
+    
+    // Sélection du nouveau bouton
+    var getDetailsButton = document.querySelector('[indicator-id="'+this.dayConsumption.dayConsumptionManager.currentIndicator+'"]')
+    getDetailsButton.classList.add('indicator-selectionned')
+
+    this.update()
   }
   onClickUpdateMetadata(){
     var date = document.querySelector("#metadata-date").value;
