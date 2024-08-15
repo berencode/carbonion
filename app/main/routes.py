@@ -24,3 +24,7 @@ def mentions_legales():
         Affichage des mentions légales
     """
     return render_template('mentions_legales.html')
+
+@bp.route('/test')
+def test():
+    return render_template('test.html', current_user=current_user)

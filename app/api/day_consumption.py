@@ -16,7 +16,7 @@ def create(day_consumption):
         day_consumption['is_finished'] = False
     else :
         day_consumption['user_id'] = session.get('user_id')
-        
+        day_consumption['is_finished'] = False
     new_day_consumption = day_consumption_schema.load(day_consumption, session=db.session)
     db.session.add(new_day_consumption)
     db.session.commit()
