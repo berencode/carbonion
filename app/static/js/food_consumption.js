@@ -139,16 +139,8 @@ export class FoodConsumptionModal{
 
         /* MISE EN PLACE DES DIFFÉRENTS ÉVÊNEMENTS LIÉS AU MODAL*/
         var inputQuantity = modalBody.querySelector("#input-quantity");
-        var inputUnit = modalBody.querySelector("#input-unit");
-        var inputFoodType = modalBody.querySelector("#input-food-type");
-
 
         inputQuantity.addEventListener(
-            "input",
-            this.onRefreshValues.bind(this)
-        );
-
-        inputUnit.addEventListener(
             "input",
             this.onRefreshValues.bind(this)
         );
@@ -164,13 +156,27 @@ export class FoodConsumptionModal{
         $('#foodConsumption').modal('show');
 
 
-        console.log($("#foodConsumption"));
-        console.log($('#input-food-type'));
-
         $('#input-food-type').select2({
             dropdownParent: $("#foodConsumption"),
             placeholderOption: 'first'
         });
+        $('#input-unit').select2({
+            dropdownParent: $("#foodConsumption"),
+            placeholderOption: 'first'
+        });
+        $('#input-meal-type').select2({
+            dropdownParent: $("#foodConsumption"),
+            placeholderOption: 'first'
+        });
+
+
+        $('#input-unit').on('select2:select', 
+            this.onRefreshValues.bind(this)
+        );
+
+        $('#input-food-type').on('select2:select', 
+            this.onRefreshValues.bind(this)
+        );
     }
 
     onRefreshValues(){
@@ -188,9 +194,10 @@ export class FoodConsumptionModal{
 
         var quantityIndicator = document.querySelector('.quantity-carbon-footprint');
         quantityIndicator.innerHTML = newIndicatorValue;
+
+        this.refreshColor();
     }
     refreshColor(){
-        console.log("REFRESHCOLOR !");
         var colorField = document.querySelector('#input-color');
         var foodType = document.querySelector("#input-food-type").value;
         colorField.setAttribute('value', this.getRefentialColor(foodType));
