@@ -18,6 +18,12 @@ def index():
 def profile():
     return render_template('profil.html', current_user=current_user)
 
+
+# @bp.route('/admin_manager')
+# @login_required
+# def admin_manager():
+#     return render_template('admin/admin_manager.html', current_user=current_user)
+
 @bp.route('/mentions_legales')
 def mentions_legales():
     """
