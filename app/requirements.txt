@@ -20,6 +20,7 @@ Flask==2.2.5
 Flask-Login==0.6.3
 Flask-Mail==0.9.1
 flask-marshmallow==0.14.0
+flask-migrate==4.0.7
 Flask-SQLAlchemy==3.0.3
 greenlet==2.0.1
 gunicorn==21.2.0
