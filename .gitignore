@@ -1,5 +1,4 @@
 __pycache__/
 *.pyc
-migrations/
 /app/config.py
 /app/static/lib/node_modules/
