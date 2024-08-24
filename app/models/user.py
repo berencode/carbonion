@@ -5,7 +5,10 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from models.challenge import Challenge, ChallengeSchema
 from datetime import datetime
 
-
+class Role(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
+    
 class User(UserMixin, db.Model):
     __tablename__ = "user"
     id = db.Column(db.String(100), primary_key=True) # primary keys are required by SQLAlchemy
@@ -13,6 +16,9 @@ class User(UserMixin, db.Model):
     password = db.Column(db.Text)
     inscription_date = db.Column(db.DateTime, default=datetime.utcnow)
     activated = db.Column(db.Boolean, default=False)
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)
+    role = db.relationship('Role', backref=db.backref('users', lazy=True))
+
 
     def __repr__(self):
         return f'<User "{self.mail}">'
