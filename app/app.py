@@ -42,38 +42,34 @@ app.register_blueprint(demo_bp, url_prefix='/demo')
 from challenge import bp as challenge_bp
 app.register_blueprint(challenge_bp, url_prefix='/challenge', name="challenge")
 
-class UserAdmin(ModelView):
-    column_list = ('username', 'email', 'role')
-    column_labels = {'username': 'Username', 'email': 'Email Address', 'role': 'Role'}
-    column_filters = ('username', 'email', 'role.name')
-
-class RoleAdmin(ModelView):
-    column_list = ('name',)
-    column_labels = {'name': 'Role Name'}
-    column_filters = ('name',)
-
-class PostAdmin(ModelView):
-    column_list = ('title', 'author', 'content')
-    column_labels = {'title': 'Post Title', 'author': 'Author', 'content': 'Content'}
-    column_filters = ('title', 'author.username')
-
-
-
+# Interface d'administration
 class AdminModelView(ModelView):
     def is_accessible(self):
-        return current_user.is_authenticated and current_user.role.name == 'Admin'
+        return current_user.is_authenticated and current_user.role.name == 'admin'
 
 class UserAdmin(AdminModelView):
     pass
+class RoleAdmin(AdminModelView):
+    pass
+class ChallengeAdmin(AdminModelView):
+    pass
+class FoodConsumptionAdmin(AdminModelView):
+    pass
+class FoodAdmin(AdminModelView):
+    pass
+class IndicatorAdmin(AdminModelView):
+    pass
+class NewAdmin(AdminModelView):
+    pass
 
 
-# Ajouter la liste des vues configurables ici
+
 config.admin.add_view(UserAdmin(User, config.db.session))
-config.admin.add_view(ModelView(ChallengeModel, config.db.session, endpoint="challenge-admin"))
-config.admin.add_view(ModelView(FoodConsumption, config.db.session))
-config.admin.add_view(ModelView(Food, config.db.session))
-config.admin.add_view(ModelView(Indicator, config.db.session))
-config.admin.add_view(ModelView(New, config.db.session))
+config.admin.add_view(ChallengeAdmin(ChallengeModel, config.db.session, endpoint="challenge-admin"))
+config.admin.add_view(FoodConsumptionAdmin(FoodConsumption, config.db.session))
+config.admin.add_view(FoodAdmin(Food, config.db.session))
+config.admin.add_view(IndicatorAdmin(Indicator, config.db.session))
+config.admin.add_view(NewAdmin(New, config.db.session))
 
 @app.route('/test/')
 def test_page():
