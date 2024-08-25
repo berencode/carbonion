@@ -23,7 +23,8 @@ def create_initial_data():
         "id": "68d1b91b-fd1d-4d7f-9b58-3912dd9ad23e", 
         'mail': 'admin', 
         'password' : 'sha256$2aIwJvL5wyOVy44M$b647244dda1675acb69104c5985f8e6674119b44999c6e4d97514941a906d47e', 
-        'activated' : True
+        'activated' : True,
+        'role_id' : 1
     }
     user_instance = user_schema.load(user_data)
     db.session.add(user_instance)
@@ -106,6 +107,8 @@ def create_db():
     db.create_all()
     create_initial_data()
     db.session.commit()
+
+
 
 
 if __name__ == "__main__":
