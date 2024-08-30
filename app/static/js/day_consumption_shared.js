@@ -446,6 +446,7 @@ export class ResumeIndicators{
 
     var resumeContainer = document.querySelector('.container-resume-indicator');
     resumeContainer.replaceWith(res);
+    
 
   }
 }
