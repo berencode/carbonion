@@ -40,7 +40,7 @@ def read_one(day_consumption_id):
     abort(404, f"DayConsumption with ID {day_consumption_id} not found")
     return True
 
-#@login_required
+@login_required
 def delete(day_consumption_id):
     """Supprimer un jour de consommation"""
     existing_day_consumption = DayConsumption.query.get(day_consumption_id)
@@ -57,14 +57,14 @@ def delete(day_consumption_id):
     abort(404, f"DayConsumption with ID {day_consumption_id} not found")
     return True
 
-#@login_required
+@login_required
 def update(day_consumption, day_consumption_id):
     """Modifier un jour de consommation"""
     existing_day_consumption = DayConsumption.query.get(day_consumption_id)
     if existing_day_consumption:
-        update_person = day_consumption_schema.load(day_consumption, session=db.session)
-        existing_day_consumption.day_consumption_id = update_person.day_consumption_id
-        existing_day_consumption.date = update_person.date
+        update_day_consumption = day_consumption_schema.load(day_consumption, session=db.session)
+        existing_day_consumption.day_consumption_id = update_day_consumption.day_consumption_id
+        existing_day_consumption.date = update_day_consumption.date
         db.session.merge(existing_day_consumption)
         db.session.commit()
         return day_consumption_schema.dump(existing_day_consumption), 201

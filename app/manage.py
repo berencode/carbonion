@@ -4,6 +4,8 @@ from app import app
 from config import db
 from models.user import User
 from models.user import user_schema
+from models.user import Role
+from models.user import role_schema
 from models.food import food_schema
 from models.new import new_schema
 from models.challenge import challenge_schema
@@ -13,18 +15,37 @@ from models.food_consumption import FoodConsumptionSchema
 import pandas as pd
 import json
 import sys
+from marshmallow import EXCLUDE
 
 cli = FlaskGroup(app)
 
 def create_initial_data():
     """Insertion des données initiales dans la base de données"""
+    # Insertion des différents rôles 
+    role_data_user = {
+        "id" : 0,
+        "name" : "utilisateur"
+    }
+    role_data_admin = {
+        "id" : 1,
+        "name" : "admin"
+    }
+
+    role_instance = role_schema.load(role_data_user)
+    db.session.add(role_instance)
+
+    role_instance = role_schema.load(role_data_admin)
+    db.session.add(role_instance)
+    db.session.commit()
+    
+
     # Insertion de l'utilisateur admin
     user_data = {
         "id": "68d1b91b-fd1d-4d7f-9b58-3912dd9ad23e", 
         'mail': 'admin', 
         'password' : 'sha256$2aIwJvL5wyOVy44M$b647244dda1675acb69104c5985f8e6674119b44999c6e4d97514941a906d47e', 
         'activated' : True,
-        'role_id' : 1
+        "role_id" : 1 
     }
     user_instance = user_schema.load(user_data)
     db.session.add(user_instance)

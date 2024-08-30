@@ -13,8 +13,10 @@ class DayConsumption(db.Model):
     commentary = db.Column(db.String(500), default="")
     user_id = db.Column(db.String(100))
     challenge_id = db.Column(db.String(100))        # Identifiant du challenge auquel le jour est attaché
-    _index = db.Column(db.Integer)                   # Index du jour au sein du challenge
+    _index = db.Column(db.Integer)                  # Index du jour au sein du challenge
     is_finished = db.Column(db.Boolean)             # Booléen indiquant si la saisie est déclarée cloturée
+    want_share = db.Column(db.Boolean)                 # Booléen indiquant si l'utilisateur souhaite partager son menu
+    shared_id = db.Column(db.String(100))           # identifiant du partage
     def __repr__(self):
         return f'<DayConsumption "{self.day_consumption_id}">'
 

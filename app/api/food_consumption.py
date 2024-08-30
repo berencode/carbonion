@@ -14,7 +14,8 @@ def create(food_consumption):
     db.session.add(new_food_consumption)
     db.session.commit()
     return food_consumption_schema.dump(new_food_consumption), 201
-
+    
+@login_required
 def read_all():
     """Lire toutes les consommations d'aliments pour l'utilsateur courant"""
     if(current_user.is_anonymous):
@@ -42,7 +43,7 @@ def read_all_for_day(day_consumption_id):
         return [], 201
     #abort(404, f"Foods Consumptions with day_consumption_id {day_consumption_id} not found")
     #return True
-    
+
 def delete(food_consumption_id):
     """Supprimer une consommation d'aliments"""
     existing_food_consumption = FoodConsumption.query.get(food_consumption_id)

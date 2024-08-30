@@ -5,6 +5,7 @@ import config
 from models.user import User
 from models.challenge import Challenge as ChallengeModel
 from models.food_consumption import FoodConsumption
+from models.day_consumption import DayConsumption
 from models.food import Food
 from models.indicator import Indicator
 from models.new import New
@@ -39,6 +40,9 @@ app.register_blueprint(statement_bp, url_prefix='/statement')
 from demo import bp as demo_bp
 app.register_blueprint(demo_bp, url_prefix='/demo')
 
+from sharing import bp as sharing_bp
+app.register_blueprint(sharing_bp, url_prefix='/sharing')
+
 from challenge import bp as challenge_bp
 app.register_blueprint(challenge_bp, url_prefix='/challenge', name="challenge")
 
@@ -61,7 +65,8 @@ class IndicatorAdmin(AdminModelView):
     pass
 class NewAdmin(AdminModelView):
     pass
-
+class DayConsumptionAdmin(AdminModelView):
+    pass
 
 
 config.admin.add_view(UserAdmin(User, config.db.session))
@@ -70,6 +75,7 @@ config.admin.add_view(FoodConsumptionAdmin(FoodConsumption, config.db.session))
 config.admin.add_view(FoodAdmin(Food, config.db.session))
 config.admin.add_view(IndicatorAdmin(Indicator, config.db.session))
 config.admin.add_view(NewAdmin(New, config.db.session))
+config.admin.add_view(DayConsumptionAdmin(DayConsumption, config.db.session))
 
 @app.route('/test/')
 def test_page():

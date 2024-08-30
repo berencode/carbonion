@@ -758,3 +758,7 @@ input[type=text]{
     justify-content: center;
     align-items: center;
 }
+
+.btn-success{
+    background-color: #33ac66;
+}

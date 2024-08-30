@@ -12,7 +12,6 @@ class FoodConsumption(db.Model):
     meal_type_id = db.Column(db.String(30))   # Identifiant du type de repas auquel la consommation d'aliment est attaché
     color = db.Column(db.String(30))    # Couleur de l'aliment
     comment = db.Column(db.String(200)) # Commentaire sur l'aliment
-    # carbon_footprint = db.Column(db.Float(10)) # Emprunte carbone de l'aliment
     day_consumption_id = db.Column(db.String(100)) # Clé étrangère vers le jour de consommation où la consommation est déclarée
     def __repr__(self):
         return f'<FoodConsumption "{self.food_consumption_id}">'

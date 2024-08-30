@@ -1,11 +1,17 @@
 import { ComputeIndicator } from "./compute_indicator.js";
 
 export class FoodConsumption{
-    constructor(dataConsumptionFood, dayConsumptionDetails, isCreated){
+    constructor(dataConsumptionFood, dayConsumptionDetails, isCreated, editable=true){
         this.dataConsumptionFood = dataConsumptionFood;
         this.foodConsumptionModal = new FoodConsumptionModal(this);
         this.dayConsumptionDetails = dayConsumptionDetails;
-        this.foodConsumptionGetDetailsButton = new FoodConsumptionGetDetailsButton(this, this.dayConsumptionDetails.dayConsumption.dayConsumptionManager);
+        console.log("editable : ", editable);
+        if(editable){
+            this.foodConsumptionGetDetailsButton = new FoodConsumptionGetDetailsButton(this, this.dayConsumptionDetails.dayConsumption.dayConsumptionManager);
+        }
+        else{
+            this.foodConsumptionGetDetailsButton = new FoodConsumptionGetDetailsButtonShared(this, this.dayConsumptionDetails.dayConsumption.dayConsumptionManager);
+        }
         // on se souvient si l'utilisateur doit d'abord créer la consommation, ou juste la modifier.
         this.isCreated = isCreated;
 
@@ -24,8 +30,6 @@ export class FoodConsumption{
         }
         fetch('/api/food_consumption/'+this.dataConsumptionFood.food_consumption_id, initObject)
           .then(response => {
-                console.log("button to remove : ", this.dataConsumptionFood.food_consumption_id);
-                console.log('.food-consumption-item[food-consumption-id="'+this.dataConsumptionFood.food_consumption_id+'"]');
                 var buttonToRemove = document.querySelector('.food-consumption-item[food-consumption-id="'+this.dataConsumptionFood.food_consumption_id+'"]')
                 buttonToRemove.remove()
 
@@ -447,6 +451,7 @@ export class FoodConsumptionGetDetailsButton{
             </div>
         `;     
         
+        // On ouvre le modal seulement si le foodConsumption est éditable (c'est à dire qu'on est pas dans le mode de partage)
         /* Ajout du listener sur le bouton principal*/
         res.querySelector('.button-get-details-food-consumption').addEventListener(
             "click",
@@ -457,7 +462,8 @@ export class FoodConsumptionGetDetailsButton{
             "click",
             this.onDelete.bind(this)
         );
-
+        
+        
         return res
     }
     onDelete(){
@@ -467,6 +473,57 @@ export class FoodConsumptionGetDetailsButton{
         // On envoie l'information au parent
         this.foodConsumption.select()
     }
+}
+
+export class FoodConsumptionGetDetailsButtonShared{
+    constructor(foodConsumption, dayConsumptionManager){
+        //this.dataConsumptionFood = dataConsumptionFood
+        // Attention : foodConsumption peut être un FoodConsumption ou un FoodConsumptionSelect
+        this.foodConsumption = foodConsumption;
+        this.dayConsumptionManager = dayConsumptionManager;
+    }
+    refresh(){
+        var newRender = this.getHtmlRender()
+        document.querySelector('div[food-consumption-id = "'+this.foodConsumption.dataConsumptionFood.food_consumption_id+'"][class="food-item-container"]').replaceWith(
+            newRender.firstElementChild
+        );
+
+        feather.replace();
+    }
+    getHtmlRender(){
+        const res = document.createElement("div");
+        var foodTypes = this.dayConsumptionManager.foods;
+        var currentIndicator = this.foodConsumption.dayConsumptionDetails.dayConsumption.dayConsumptionManager.currentIndicator;
+        var indicators = this.foodConsumption.dayConsumptionDetails.dayConsumption.dayConsumptionManager.indicators;
+        res.classList.add('food-consumption-item');
+        res.setAttribute("food-consumption-id", this.foodConsumption.dataConsumptionFood.food_consumption_id);
+        res.innerHTML = `
+            <div class="food-item-container" food-consumption-id = '${this.foodConsumption.dataConsumptionFood.food_consumption_id}'>
+
+                <div class='button-get-details-food-consumption' food-consumption-id = '${this.foodConsumption.dataConsumptionFood.food_consumption_id}'> 
+                        <div class = "food">
+                            
+                            <div class = "food-item-first-column">
+                                <rect class="rect-color" style="background-color:${this.foodConsumption.dataConsumptionFood.color}">
+                            </div>
+                            <div class = "food-item-column-extanded">
+                                ${foodTypes[this.foodConsumption.dataConsumptionFood.ref_id]['nom_produit']}
+                            </div>
+                            <div class = "food-item-column">
+                                ${this.foodConsumption.dataConsumptionFood.quantity} ${this.foodConsumption.dataConsumptionFood.unit}
+                            </div>
+                            <div class = "food-item-column">
+                                <span class="badge rounded-pill text-bg-light">${this.foodConsumption.indicatorValues[currentIndicator]}</span>
+                                <span class="food-item-unit""> ${indicators[currentIndicator]['unit']}</span>
+
+                            </div>
+                        </div>
+                </div>
+            </div>
+        `;     
+        return res
+    }
+
 }
 
 
@@ -506,10 +563,7 @@ export class FoodConsumptionSelectGetDetailsButton{
         this.refresh();
     }
     refresh(){
-        console.log("refresh");
         var newRender = this.getHtmlRender();
-        console.log(newRender);
-        console.log(this.foodConsumption.dataConsumptionFood.food_consumption_id);
         document.querySelector('div[food-consumption-id = "'+this.foodConsumption.dataConsumptionFood.food_consumption_id+'"][class="food-item-container"]').replaceWith(
             newRender.firstElementChild
         );
