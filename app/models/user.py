@@ -17,7 +17,7 @@ class User(UserMixin, db.Model):
     inscription_date = db.Column(db.DateTime, default=datetime.utcnow)
     activated = db.Column(db.Boolean, default=False)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False, default=0)
-    role = db.relationship('Role', backref=db.backref('users', lazy=True))
+    role = db.relationship('Role', backref=db.backref('user', lazy=True))
 
 
     def __repr__(self):
@@ -65,5 +65,15 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
         model = User
         load_instance = True
         sqla_session = db.session
+        include_fk = True
+
+class RoleSchema(ma.SQLAlchemyAutoSchema):
+    """doc"""
+    class Meta:
+        model = Role
+        load_instance = True
+        sqla_session = db.session
+        include_fk = True
 
 user_schema = UserSchema()
+role_schema = RoleSchema()

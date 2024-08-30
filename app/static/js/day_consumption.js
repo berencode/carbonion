@@ -3,7 +3,7 @@
 import { FoodConsumption, FoodConsumptionSelect} from "./food_consumption.js";
 
 export class DayConsumptionManager{
-  constructor(isDemo=false){
+  constructor(isDemo=false, isSharing=false){
     this.listDaysConsumptions = document.querySelector(".day-consumption-list");
     this.foods = null;        // référentiel des aliments (à charger une seule fois)
     this.indicators = null;   // référentiel des indicateurs (à charger une seule fois)
@@ -15,6 +15,7 @@ export class DayConsumptionManager{
     this.activateCreateDayButton();
     this.daysConsumptions = [];
     this.isDemo = isDemo;
+    this.isSharing = isSharing;
   }
 
   displayLoading(){
@@ -160,6 +161,7 @@ export class DayConsumptionManager{
     );
   }
 
+
   
   createDayConsumption() {
     /*
@@ -210,6 +212,8 @@ export class DayConsumptionManager{
     var children = container.children('.day-consumption-card');
     container.scrollTop += 10000;
   }
+
+
 }
 
 
@@ -355,7 +359,7 @@ export class DayConsumptionDetails{
     // mise à jour du résumé des indicateurs
     this.resumeIndicators.display();
 
-    // mise à jour des jours de consommations
+    // mise à jour des consommations
     this.foodConsumptions.forEach((foodConsumption, index)=>{
       foodConsumption.updateIndicator()
     })
@@ -626,14 +630,51 @@ export class DayConsumptionDetails{
       this.onClickFinishDay.bind(this)
     );
 
-     // Activation et réinitialisation du bouton Importer dans le modal d'import
-     var buttonFinishModal = document.querySelector("#button-yes-import-modal")
-     buttonFinishModal.replaceWith(buttonFinishModal.cloneNode(true));
-     buttonFinishModal = document.querySelector("#button-yes-import-modal")
-     buttonFinishModal.addEventListener(
-       "click",
-       this.modalImport.submit.bind(this.modalImport)
-     );
+    // Activation et réinitialisation du bouton Importer dans le modal d'import
+    var buttonFinishModal = document.querySelector("#button-yes-import-modal")
+    buttonFinishModal.replaceWith(buttonFinishModal.cloneNode(true));
+    buttonFinishModal = document.querySelector("#button-yes-import-modal")
+    buttonFinishModal.addEventListener(
+      "click",
+      this.modalImport.submit.bind(this.modalImport)
+    );
+    console.log("this.dayConsumption.isDemo", this.dayConsumption.dayConsumptionManager.isDemo);
+    if(! this.dayConsumption.dayConsumptionManager.isDemo){
+      // Activation et réinitialisation du bouton Partager dans le modal d'import
+      var buttonShare = document.querySelector("#want-share-button")
+      buttonShare.replaceWith(buttonShare.cloneNode(true));
+      buttonShare = document.querySelector("#want-share-button")
+      // mise à jour de la valeur par défaut
+      buttonShare.checked = this.dataDayConsumption.want_share;
+      //mise à jour de l'affichage du lien au besoin
+      buttonShare.checked = this.dataDayConsumption.want_share;
+      var link = document.querySelector("#share-link");
+      var relative_path = document.querySelector('#relative-path').getAttribute('base-url')
+      link.value = relative_path+'sharing/'+this.dataDayConsumption.shared_id;
+      var linkContainer = document.querySelector("#link-container");
+      if(this.dataDayConsumption.want_share){
+        /* On doit afficher le click to clipboard */
+        linkContainer.classList.remove('hide');
+        linkContainer.classList.add('display');
+      }
+      else{
+        /* On doit retirer le click to clipboard */
+        linkContainer.classList.remove('display');
+        linkContainer.classList.add('hide');
+        console.log("on est dans ce cas là")
+      }
+
+      buttonShare.addEventListener(
+        "click",
+        this.onClickShareDay.bind(this)
+      );
+      var copyToClipBoardButton = document.querySelector("#copy-share-link-button");
+      copyToClipBoardButton.addEventListener(
+        "click",
+        this.onClickCopyToClipBoard.bind(this)
+      );
+    }
+
 
     document.getElementsByClassName('day-consumption-details-card')[0].replaceWith(res)
     feather.replace();
@@ -651,6 +692,18 @@ export class DayConsumptionDetails{
       trash.style.display = display;
     }
     feather.replace();
+  }
+
+  onClickCopyToClipBoard(){
+    // Get the text area element
+    var copyText = document.querySelector("#share-link");
+    
+    // Select the text field
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); // For mobile devices
+
+    // Copy the text inside the text area to the clipboard
+    document.execCommand("copy");
   }
   
   onClickFinishDay(){
@@ -678,7 +731,62 @@ export class DayConsumptionDetails{
           }
       )
       .catch(error => console.error(error));
-      
+  }
+  onClickShareDay(event){
+    /* s'exécute lors que la valeur du share est modifiée */
+    // 'event' will contain information about the button click
+    const buttonValue = event.target.checked;
+    console.log("Souhaiter partager : ", buttonValue);
+    console.log("this : ", this)
+
+    console.log("dayConsumptionId : ", this.dayConsumptionId)
+    /* 
+      On doit mettre à jour la valeur de want_share dans le jour de consommation !
+      Lorsque share est à true, un utilisateur qui souhaite accéder à l'url pourra y accéder.
+    */
+
+    var newDataDayConsumption = {...this.dataDayConsumption}
+    newDataDayConsumption.shared_id = this.dayConsumptionId,
+    newDataDayConsumption.want_share = event.target.checked;
+
+    let initObject = {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newDataDayConsumption)
+    }
+    fetch('/api/day_consumption/'+this.dayConsumptionId, initObject)
+    .then(response => 
+      response.json()
+    )
+    .then((dataConsumptionFood) => {
+          this.dataDayConsumption = dataConsumptionFood;
+          
+          
+          if(newDataDayConsumption.want_share){
+            /* On doit mettre à jour la valeur du champs à copier*/
+            var link = document.querySelector("#share-link");
+            var relative_path = document.querySelector('#relative-path').getAttribute('base-url')
+            link.value = relative_path+'sharing/'+this.dataDayConsumption.shared_id;
+            
+            /* On doit afficher le click to clipboard */
+            var linkContainer = document.querySelector("#link-container");
+            linkContainer.classList.remove('hide');
+            linkContainer.classList.add('display');
+          }
+          else {
+            /* On doit cacher le click to clipboard */
+            var linkContainer = document.querySelector("#link-container");
+            linkContainer.classList.remove('display');
+            linkContainer.classList.add('hide');
+          }
+        }
+    )
+    .catch(error => console.error(error));
+
+
+  
   }
   onClickUpdateIndicator(indicatorId){
     // Déselection de l'ancien bouton
@@ -747,7 +855,7 @@ export class DayConsumptionDetails{
 
     foodConsumption.foodConsumptionModal.display();
   }
-  
+
   updateDataApexChart(){
     var newData = this.generateDataApexChart(this.foodConsumptions)
     var colors = this.generateColorsApexChart(this.foodConsumptions);
