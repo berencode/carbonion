@@ -82,14 +82,12 @@
             <a class="nav-link" href="{{ url_for('main.mentions_legales') }}">Mentions légales</a>
         </div>
         <div class = "footer-item">
-            Voir le code
+            <a class="nav-link" href="https://github.com/berencode/carbonion">Voir le code</a>
         </div>
         <div class = "footer-item">
-            {{version}}
+            <a class="nav-link" href="https://github.com/berencode/carbonion/releases/tag/v{{version}}">{{version}}</a>
         </div>
     </div>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock %}
-
-
 

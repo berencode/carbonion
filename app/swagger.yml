@@ -25,6 +25,10 @@ components:
           type: "string"
         is_finished:
           type: "boolean"
+        want_share:
+          type: "boolean"
+        shared_id:
+          type: "string"
     FoodConsumption:
       type: "object"
       properties:
