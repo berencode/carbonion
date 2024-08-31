@@ -63,6 +63,10 @@
         min-height: 3vh;
     }
 }
+.list-days-container::-webkit-scrollbar {
+    display: none; /* pour Safari et Chrome */
+}
+
 
 .day-consumption-details-card{
     display: flex;
@@ -265,6 +269,9 @@
     background-color: #5d6d7e;
     height: 100vh;
     overflow: scroll;
+}
+.food-consumption-list::-webkit-scrollbar {
+    display: none; /* pour Safari et Chrome */
 }
 
 .food-consumption-item{
@@ -623,10 +630,16 @@ input[type=text]{
     max-height: 300px;
     overflow: scroll;
 }
+#list-import-day-consumption::-webkit-scrollbar {
+    display: none; /* pour Safari et Chrome */
+}
 .day-consumption-list{
     display: flex;
     flex-direction: column;
     overflow: scroll;
+}
+.day-consumption-list::-webkit-scrollbar {
+    display: none; /* pour Safari et Chrome */
 }
 /* Use a media query to add a breakpoint at 800px: */
 @media screen and (max-width: 800px) {

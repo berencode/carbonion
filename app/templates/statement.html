@@ -5,7 +5,7 @@
         type="module"
     >
     </script>
-    <div id="relative-path" base-url="{{ url_for('main.index', _external=True) }}"></div>
+    <div id="relative-path" base-url="{{ url_for('main.index', _external=True, _scheme='https', viewarg1=1) }}"></div>
     <!-- Modal foodConsumption -->
     <div class="modal fade" id="foodConsumption" tabindex="0" aria-labelledby="foodConsumptionLabel" aria-hidden="true">
         <div class="modal-dialog">
