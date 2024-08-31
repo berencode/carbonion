@@ -153,6 +153,9 @@
     max-height: 300px;
     overflow: scroll;
 }
+.news-container::-webkit-scrollbar {
+    display: none; /* pour Safari et Chrome */
+  }
 
 .news-item{
     background-color:#283747;
