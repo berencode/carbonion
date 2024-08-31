@@ -173,20 +173,6 @@ export class DayConsumptionDetails{
           }
       )
       .catch(error => console.error(error));
-        
-      /* Désélection de tous les autres boutons */
-      var buttons = document.querySelectorAll('.day-consumption-list')[0].childNodes
-
-      for (var j = 1; j < buttons.length; j++) {
-        var child = buttons[j];
-        if(child.querySelector('button') != null){
-          child.querySelector('button').classList.remove('selectionned-day-consumption')
-        }
-      }
-
-      /* Modification du style de la liste pour montrer quel jour on sélectionne */
-      var getDetailsButton = document.querySelector('[day-consumption-id="'+this.dayConsumptionId+'"]')
-      getDetailsButton.classList.add('selectionned-day-consumption')
   }
 
   update(){
