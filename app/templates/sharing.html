@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
     {% block content %}
-    
+
     <script
         src="{{ url_for('static', filename='js/sharing_index.js') }}"
         type="module"
@@ -10,13 +10,6 @@
         <img src="{{ url_for('static', filename='assets/images/loading.gif') }}"  style="width:48px;height:48px;">
     </div>
     <div class = "content-loaded">
-        <div class = "list-days-container">
-            <div class="day-consumption-list">
-
-            </div>
-            <div id="contentBottom"></div>
-        </div>
-
         <div class="statement-container">
             <div class="days-container">                
                 <div class = "add-day-container">

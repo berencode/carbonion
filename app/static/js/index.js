@@ -18,6 +18,9 @@ export class NewManager{
                     response.json()
             )
             .then((news) => {
+                // Sort the news array by the 'date' field in descending order
+                news.sort((a, b) => new Date(b.creation_date) - new Date(a.creation_date));
+
                 // mise à jour de la liste des challenges.
                     news.forEach(_new => {
                         console.log(_new)

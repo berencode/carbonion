@@ -53,10 +53,15 @@ input[type=text]{
     height: 70vh;
     min-width: 80%;
     overflow: scroll;
+    -webkit-overflow-scrolling: touch;
     display: flex;
     flex-direction: column;
     gap:10px;
 }
+
+.challenge-item-container::-webkit-scrollbar {
+    display: none; /* pour Safari et Chrome */
+  }
 
 .rect-color{
     display: block;

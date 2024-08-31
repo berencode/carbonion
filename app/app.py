@@ -52,20 +52,29 @@ class AdminModelView(ModelView):
         return current_user.is_authenticated and current_user.role.name == 'admin'
 
 class UserAdmin(AdminModelView):
+    column_display_pk = True
     pass
 class RoleAdmin(AdminModelView):
+    column_display_pk = True
     pass
 class ChallengeAdmin(AdminModelView):
+    column_display_pk = True
     pass
 class FoodConsumptionAdmin(AdminModelView):
+    column_display_pk = True
     pass
 class FoodAdmin(AdminModelView):
+    column_display_pk = True
     pass
 class IndicatorAdmin(AdminModelView):
+    column_display_pk = True
     pass
 class NewAdmin(AdminModelView):
+    column_display_pk = True
+    form_columns = ('new_id', 'creation_date', 'title', 'text')
     pass
 class DayConsumptionAdmin(AdminModelView):
+    column_display_pk = True
     pass
 
 
