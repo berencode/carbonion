@@ -70,7 +70,32 @@
                     </div>
                   </div>
                 </div>
-               
+                <div class="mb-3">
+                  <div class="row justify-content-center">
+                    <label for="inputPassword2" class="form-label">Résolution du captcha</label>
+                    <div class = "equation-container">
+                      <div class="item-operation-container" id="captcha-operande1" value={{operande1}}>
+                        {{operande1}}
+                      </div>
+                      <div class="item-operation-container">
+                        <div class="item-operation-container" id="captcha-operation" value={{operation}}>
+                          {{operation}}
+                        </div>
+                      </div>
+                      <div class="item-operation-container" id="captcha-operande2" value={{operande2}}>
+                        {{operande2}}
+                      </div>
+                      <div class="item-operation-container">
+                        = 
+                      </div>
+                      <div class="item-operation-container-large">
+                        <input type="text" class="form-control" name="captchaResult" id="captcha-result">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+  
                 <button type="submit" class="btn btn-primary" id="signup-button" disabled>S'inscrire</button>
             </form>
             <a class="nav-link" href="{{ url_for('auth.signin') }}"> Déjà un compte ?</a>

@@ -10,12 +10,18 @@ export class SignupManager{
       this.mail = document.querySelector("#mail");
       this.passwordConfirmation = document.querySelector('#password-confirmation');
       this.password = document.querySelector('#password');
-      this.button = document.querySelector('#signup-button')
+      this.button = document.querySelector('#signup-button');
+      this.captchaOperande1 = document.querySelector('#captcha-operande1').getAttribute('value');
+      this.captchaOperande2 = document.querySelector('#captcha-operande2').getAttribute('value');
+      this.captchaOperation = document.querySelector('#captcha-operation').getAttribute('value');
+      this.captchaResult = document.querySelector('#captcha-result');
       this.activateCheckMail();
       this.activateCheckPasswords();
+      this.activateCheckCaptcha();
       this.stateMailCorrect = false;
       this.statePasswordMatch = false;
       this.statePasswordVerified = false;
+      this.stateCaptchaVerified = false;
     }
 
     isValidEmail(email) {
@@ -50,6 +56,17 @@ export class SignupManager{
         // on met à jour le bouton valider au besoin : 
         this.updateButtonState()
 
+    }
+
+    verifyCaptcha(){
+        var operation = this.captchaOperande1+this.captchaOperation+this.captchaOperande2
+        if(eval(operation)==Number(this.captchaResult.value)){
+            this.stateCaptchaVerified = true;
+        }
+        else{
+            this.stateCaptchaVerified = false;
+        }
+        this.updateButtonState()
     }
 
     verifyPassword(){
@@ -138,7 +155,13 @@ export class SignupManager{
             "input",
             this.checkPasswords.bind(this)
         )
+    }
 
+    activateCheckCaptcha(){
+        this.captchaResult.addEventListener(
+            "input",
+            this.verifyCaptcha.bind(this)
+        )
     }
 
     checkPasswords(){
@@ -162,8 +185,8 @@ export class SignupManager{
     }
 
     updateButtonState(){
-        
-        if(this.stateMailCorrect && this.statePasswordMatch && this.statePasswordVerified){
+        console.log(this.stateMailCorrect, this.statePasswordMatch, this.statePasswordVerified, this.stateCaptchaVerified);
+        if(this.stateMailCorrect && this.statePasswordMatch && this.statePasswordVerified && this.stateCaptchaVerified){
             this.button.disabled = false;
         }
         else{

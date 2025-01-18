@@ -99,3 +99,32 @@ input[type=text]{
     font-weight: bold;
     padding: 5px;
 }
+
+
+.equation-container{
+    display: flex;
+    flex-direction: row;
+    vertical-align: center;
+    justify-content: center;
+    align-items: center;
+    max-width: 180px;
+}
+
+.operation-container{
+    display: flex;
+}
+
+.item-operation-container{
+    display: flex;
+    flex : 1;
+    vertical-align: center;
+    justify-content: center;
+    align-items: center;
+}
+.item-operation-container-large{
+    display: flex;
+    flex : 2;
+    vertical-align: center;
+    justify-content: center;
+    align-items: center;
+}

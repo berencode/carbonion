@@ -13,14 +13,10 @@ from flask_login import current_user
 
 @bp.before_request
 def assign_unique_id():
-    print("qmsoerqmoseirjmqoseij")
     if current_user.is_anonymous :
-        print("qmoseirmqoseiur")
-        print(session.get('user_id'))
         if 'user_id' not in session:
             user_id = str(uuid.uuid4())
             session['user_id'] = user_id
-            print("On va créer un challenge factice")
             challenge.create({'day_number' : 1, 'status' : 0})
 
 @bp.route('/')
