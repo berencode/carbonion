@@ -7,12 +7,19 @@ from models.user import User
 from config import db, mail
 import uuid
 from auth import bp
-
+import random
 
 @bp.route('/signup/', methods=['GET'])
 def signup():
     error = request.args.get('error')
-    return render_template('auth/signup.html', error=error)
+
+    # tirage au sort des opérandes
+    operande1 = random.randint(0, 49)
+    operande2 = random.randint(0, 49)
+
+    # tirage au sort de l'opération 
+    operation = random.choice(['+', '-'])
+    return render_template('auth/signup.html', error=error, operande1=operande1, operande2=operande2, operation=operation)
 
 @bp.route('/signup/', methods=['POST'])
 def signup_post():
