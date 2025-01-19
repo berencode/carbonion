@@ -42,6 +42,8 @@ components:
           type : "string"
         color:
           type : "string"
+        day_consumtion_id:
+          type : "string"
     Challenge:
       type: "object"
       properties:

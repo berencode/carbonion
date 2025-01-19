@@ -28,6 +28,7 @@ def get_random_color():
 
 def all_challenge_terminated(user):
     """ Vérifie que tous les challenges de l'utilisateur sont terminés"""
+    
     challenges = Challenge.query.filter_by(user_id=user.id).all()
     is_all_terminated = True
     for challenge in challenges :
@@ -85,7 +86,7 @@ def read_all():
         user_id = session.get('user_id')
     else :
         user_id = current_user.id
-    print(user_id)
+
     existing_challenges = Challenge.query.filter_by(user_id=user_id).all()
     if existing_challenges:
         challenges_schema = ChallengeSchema(many=True)
@@ -101,60 +102,78 @@ def read_all():
 @login_required
 def read_one(challenge_id):
     """Lire un challenge en particulier"""
+    if(current_user.is_anonymous):
+        user_id = session.get('user_id')
+    else:
+        user_id = current_user.id
+
     existing_challenge = Challenge.query.get(challenge_id)
     if existing_challenge:
-        challenge = challenge_schema.dump(existing_challenge)
-        # ajout des informations utiles par la suite
-        challenge['is_terminated'] = is_terminated(challenge_id)
-        return challenge, 201
+        if existing_challenge.user_id == user_id:
+            challenge = challenge_schema.dump(existing_challenge)
+            # ajout des informations utiles par la suite
+            challenge['is_terminated'] = is_terminated(challenge_id)
+            return challenge, 201
     abort(404, f"Challenge with ID {challenge_id} not found")
     return True
 
 @login_required
 def update(challenge, challenge_id):
     """Modifier un challenge"""
+    if(current_user.is_anonymous):
+        user_id = session.get('user_id')
+    else:
+        user_id = current_user.id
+
     existing_challenge = Challenge.query.get(challenge_id)
     old_day_number = int(existing_challenge.day_number)
     if existing_challenge:
-        updated_challenge = challenge_schema.load(challenge, session=db.session)
-        new_day_number = int(updated_challenge.day_number)
-        print(old_day_number, new_day_number)
-        if old_day_number < new_day_number:
-            # on doit créer des nouveaux jours
-            for i in range(int(old_day_number), int(new_day_number)):
-                # on initialise chaque nouveau jour
-                day_consumption = {}
-                day_consumption['challenge_id'] = updated_challenge.challenge_id
-                day_consumption['_index'] = i
-                create_day_consumption(day_consumption)
-        elif old_day_number > new_day_number:
-            # on doit supprimer les jours existants
-            day_consumptions = DayConsumption.query.filter_by(challenge_id=challenge_id).filter(DayConsumption._index>=new_day_number).all()
-            for day_consumption in day_consumptions:
-                delete_day_consumption(day_consumption.day_consumption_id)
-        existing_challenge.day_number = updated_challenge.day_number
-        existing_challenge.name = updated_challenge.name
-        db.session.merge(existing_challenge)
-        db.session.commit()
-        return challenge_schema.dump(existing_challenge), 201
+        if(user_id == existing_challenge.user_id):
+            updated_challenge = challenge_schema.load(challenge, session=db.session)
+            new_day_number = int(updated_challenge.day_number)
+            print(old_day_number, new_day_number)
+            if old_day_number < new_day_number:
+                # on doit créer des nouveaux jours
+                for i in range(int(old_day_number), int(new_day_number)):
+                    # on initialise chaque nouveau jour
+                    day_consumption = {}
+                    day_consumption['challenge_id'] = updated_challenge.challenge_id
+                    day_consumption['_index'] = i
+                    create_day_consumption(day_consumption)
+            elif old_day_number > new_day_number:
+                # on doit supprimer les jours existants
+                day_consumptions = DayConsumption.query.filter_by(challenge_id=challenge_id).filter(DayConsumption._index>=new_day_number).all()
+                for day_consumption in day_consumptions:
+                    delete_day_consumption(day_consumption.day_consumption_id)
+            existing_challenge.day_number = updated_challenge.day_number
+            existing_challenge.name = updated_challenge.name
+            db.session.merge(existing_challenge)
+            db.session.commit()
+            return challenge_schema.dump(existing_challenge), 201
     abort(404, f"Challenge with ID {challenge_id} not found")
     return True
 
 @login_required
 def delete(challenge_id):
     """Supprimer une consommation d'aliments"""
+    if(current_user.is_anonymous):
+        user_id = session.get('user_id')
+    else:
+        user_id = current_user.id
+
     existing_challenge = Challenge.query.get(challenge_id)
     if existing_challenge:
-        # chargement de tous les jours de consommation liés au challenge
-        day_consumptions_data = DayConsumption.query.filter_by(challenge_id=challenge_id).all()
-        day_consumptions_schema = DayConsumptionSchema(many=True)
-        day_consumptions = day_consumptions_schema.dump(day_consumptions_data)
-        for day_consumption in day_consumptions:
-            # suppression du jour de consommation
-            print("day_consumption : ", day_consumption)
-            delete_day_consumption(day_consumption['day_consumption_id'])
-        db.session.delete(existing_challenge)
-        db.session.commit()
-        return make_response(f"{challenge_id} successfully deleted", 200)
+        if(user_id == existing_challenge.user_id):
+            # chargement de tous les jours de consommation liés au challenge
+            day_consumptions_data = DayConsumption.query.filter_by(challenge_id=challenge_id).all()
+            day_consumptions_schema = DayConsumptionSchema(many=True)
+            day_consumptions = day_consumptions_schema.dump(day_consumptions_data)
+            for day_consumption in day_consumptions:
+                # suppression du jour de consommation
+                print("day_consumption : ", day_consumption)
+                delete_day_consumption(day_consumption['day_consumption_id'])
+            db.session.delete(existing_challenge)
+            db.session.commit()
+            return make_response(f"{challenge_id} successfully deleted", 200)
     abort(404, f"Food consumption with ID {challenge_id} not found")
     return True

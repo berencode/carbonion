@@ -1,4 +1,4 @@
-from flask import render_template, request, url_for, redirect, current_app, render_template_string
+from flask import render_template, request, url_for, redirect, current_app, render_template_string, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
 from flask_mail import Message
@@ -19,6 +19,9 @@ def signup():
 
     # tirage au sort de l'opération 
     operation = random.choice(['+', '-'])
+
+    session['captcha_answer'] = str(eval(str(operande1) + operation + str(operande2)))
+
     return render_template('auth/signup.html', error=error, operande1=operande1, operande2=operande2, operation=operation)
 
 @bp.route('/signup/', methods=['POST'])
@@ -27,13 +30,16 @@ def signup_post():
     _mail = request.form.get('mail')
     password = request.form.get('password')
     password_confirmation = request.form.get('passwordConfirmation')
-
+    captcha_result = request.form.get('captchaResult')
+    	
     user = User.query.filter_by(mail=_mail).first() # if this returns a user, then the email already exists in database
-    
+
     if user: # if a user is found, we want to redirect back to signup page so user can try again
         return redirect(url_for('auth.signup', error='mail_exist'))
     elif(password_confirmation != password):
         return redirect(url_for('auth.signup', error='password_mismatch'))
+    elif(captcha_result != session['captcha_answer']):
+        return redirect(url_for('auth.signup', error='captcha_failed'))
     else:  
         user_controller = UserController()
         user_controller.register_user(_mail, password)

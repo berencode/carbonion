@@ -9,7 +9,7 @@ from models.food_consumption import FoodConsumption, FoodConsumptionSchema
 
 
 def create(day_consumption):
-    """Création d'un jour de consommation d'aliments"""
+    """Création d'un jour de consommation d'aliments pour l'utilisateur courant"""
     day_consumption['day_consumption_id'] = str(uuid.uuid1())
     if current_user.is_authenticated:
         day_consumption['user_id'] = current_user.id
@@ -60,8 +60,14 @@ def delete(day_consumption_id):
 @login_required
 def update(day_consumption, day_consumption_id):
     """Modifier un jour de consommation"""
+    print("udpate : update")
+    if(current_user.is_anonymous):
+        user_id = session.get('user_id')
+    else:
+        user_id = current_user.id
     existing_day_consumption = DayConsumption.query.get(day_consumption_id)
-    if existing_day_consumption:
+    print("MODIFICATION : ", existing_day_consumption)
+    if existing_day_consumption and  existing_day_consumption.user_id == user_id:
         update_day_consumption = day_consumption_schema.load(day_consumption, session=db.session)
         existing_day_consumption.day_consumption_id = update_day_consumption.day_consumption_id
         existing_day_consumption.date = update_day_consumption.date
