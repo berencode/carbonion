@@ -13,6 +13,7 @@ from flask_login import current_user
 
 @bp.before_request
 def assign_unique_id():
+    print("coucou : ", current_user.is_anonymous)
     if current_user.is_anonymous :
         if 'user_id' not in session:
             user_id = str(uuid.uuid4())

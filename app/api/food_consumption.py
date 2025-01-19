@@ -9,11 +9,28 @@ import uuid
 
 def create(food_consumption):
     """Création d'une consommation d'aliments"""
-    food_consumption['food_consumption_id'] = str(uuid.uuid1())
-    new_food_consumption = food_consumption_schema.load(food_consumption, session=db.session)
-    db.session.add(new_food_consumption)
-    db.session.commit()
-    return food_consumption_schema.dump(new_food_consumption), 201
+    if(current_user.is_anonymous):
+        user_id = session.get('user_id')
+    else:
+        user_id = current_user.id
+
+    can_create = False
+    # on vérifie que le jour de consommation où on essaie de créer la consommation appartient bien à l'utilisateur
+    existing_day_consumption = DayConsumption.query.filter_by(day_consumption_id=food_consumption['day_consumption_id']).first()
+    if(existing_day_consumption):
+        if(user_id == existing_day_consumption.user_id):
+            can_create = True
+        
+    if(can_create):
+        food_consumption['food_consumption_id'] = str(uuid.uuid1())
+        new_food_consumption = food_consumption_schema.load(food_consumption, session=db.session)
+        db.session.add(new_food_consumption)
+        db.session.commit()
+        return food_consumption_schema.dump(new_food_consumption), 201
+    else :
+        abort(404, f"You have not the required right to create into this day_consumption_id")
+        return True
+
     
 @login_required
 def read_all():
@@ -35,7 +52,19 @@ def read_all():
 
 def read_all_for_day(day_consumption_id):
     """Lire un jour de consommation specifique"""
-    existing_foods_consumptions = FoodConsumption.query.filter_by(day_consumption_id=day_consumption_id).all()
+    existing_day_consumption = DayConsumption.query.filter_by(day_consumption_id=day_consumption_id).first()
+
+    if(current_user.is_anonymous):
+        user_id = session.get('user_id')
+    else:
+        user_id = current_user.id
+
+    existing_foods_consumptions = None
+    if existing_day_consumption:
+        # on vérifie que l'utilisateur qui cherche à accéder à ce jour a bien le droit de le faire
+        if existing_day_consumption.user_id == user_id:
+            existing_foods_consumptions = FoodConsumption.query.filter_by(day_consumption_id=day_consumption_id).all()
+    
     if existing_foods_consumptions:
         food_consumptions_schema = FoodConsumptionSchema(many=True)
         return food_consumptions_schema.dump(existing_foods_consumptions), 201
@@ -47,7 +76,13 @@ def read_all_for_day(day_consumption_id):
 def delete(food_consumption_id):
     """Supprimer une consommation d'aliments"""
     existing_food_consumption = FoodConsumption.query.get(food_consumption_id)
-    if existing_food_consumption:
+
+    if(current_user.is_anonymous):
+        user_id = session.get('user_id')
+    else:
+        user_id = current_user.id
+
+    if(user_id == existing_food_consumption.get_user_id()):
         db.session.delete(existing_food_consumption)
         db.session.commit()
         return make_response(f"{food_consumption_id} successfully deleted", 200)
@@ -55,9 +90,15 @@ def delete(food_consumption_id):
     return True
 
 def update(food_consumption, food_consumption_id):
-    """Modifier un jour de consommation"""
+    """Modifier une consommation"""
     existing_food_consumption = FoodConsumption.query.get(food_consumption_id)
-    if existing_food_consumption:
+
+    if(current_user.is_anonymous):
+        user_id = session.get('user_id')
+    else:
+        user_id = current_user.id
+    # on vérifie que l'utilisateur qui cherche à accéder à ce jour a bien le droit de le faire
+    if existing_food_consumption and existing_food_consumption.get_user_id() == user_id:
         updated_food_consumption = food_consumption_schema.load(food_consumption, session=db.session)
         existing_food_consumption.quantity = updated_food_consumption.quantity
         existing_food_consumption.ref_id = updated_food_consumption.ref_id

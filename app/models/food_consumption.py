@@ -1,4 +1,6 @@
 from config import db, ma
+from models.day_consumption import DayConsumption, DayConsumptionSchema
+
 
 class FoodConsumption(db.Model):
     """
@@ -15,6 +17,13 @@ class FoodConsumption(db.Model):
     day_consumption_id = db.Column(db.String(100)) # Clé étrangère vers le jour de consommation où la consommation est déclarée
     def __repr__(self):
         return f'<FoodConsumption "{self.food_consumption_id}">'
+
+
+    def get_user_id(self):
+        existing_day_consumption = DayConsumption.query.filter_by(day_consumption_id=self.day_consumption_id).first()
+        if(existing_day_consumption):
+            return existing_day_consumption.user_id
+        return False
 
 
 class FoodConsumptionSchema(ma.SQLAlchemyAutoSchema):
